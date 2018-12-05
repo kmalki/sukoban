@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Controleur implements Sujet {
     private static Controleur singleton;
 
-
+    //commentaire
     public static Controleur getControleur() {
         if (singleton == null)
             singleton = new Controleur(new FacadeModele());
