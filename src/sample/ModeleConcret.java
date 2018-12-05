@@ -17,7 +17,7 @@ public class ModeleConcret implements Modele {
     // 4: fin marron
     //Variables
 
-    private int[] finish = {60};
+    private int[] finish = {60,71};
 
 
     public ArrayList<int[]> getCoups(){
@@ -27,11 +27,11 @@ public class ModeleConcret implements Modele {
     private int[] etat = {
             9,9,9,3,3,3,3,3,3,9,9,
             9,3,3,0,0,0,0,3,0,3,9,
-            9,3,0,0,0,0,3,9,3,3,9,
+            9,3,0,0,0,2,3,9,3,3,9,
             9,3,0,3,2,0,3,9,3,3,9,
             9,3,0,0,1,0,3,9,3,3,9,
             9,3,0,0,0,4,3,9,3,3,9,
-            9,3,0,0,0,0,0,3,0,3,9,
+            9,3,0,0,0,4,0,3,0,3,9,
             9,3,0,0,0,0,0,0,0,3,9,
             9,3,0,0,0,0,0,0,0,3,9,
             9,3,3,3,3,3,3,3,3,3,9,

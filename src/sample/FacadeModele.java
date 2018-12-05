@@ -24,6 +24,7 @@ public class FacadeModele {
     public boolean winornot() {
         return modele.winornot();
     }
+
     public void undo(){modele.undo();}
 
     public boolean canUndo() {

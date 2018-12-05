@@ -1,6 +1,11 @@
 package sample;
 
 import java.util.ArrayList;
+import java.util.Optional;
+
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
 
 public class Controleur implements Sujet {
     private static Controleur singleton;
@@ -74,6 +79,27 @@ public class Controleur implements Sujet {
     public void winornot() {
         if(facadeModele.winornot()==true){
             System.out.println("WIN");
+            Alert alert = new Alert(AlertType.CONFIRMATION);
+            alert.setTitle("");
+            alert.setHeaderText("Vous avez gagné !     VOTRE SCORE : "+ facadeModele.nbCoup());
+            alert.setContentText("Que voulez vous faire ?");
+
+            ButtonType buttonReset = new ButtonType("Rejouer");
+            ButtonType buttonMenu = new ButtonType("Menu principal");
+
+            alert.getButtonTypes().setAll(buttonReset, buttonMenu);
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.get() == buttonReset)
+            {
+                reset();
+            }
+            else if(result.get() == buttonMenu)
+            {
+                // ...
+            }
+
         }
     }
 
