@@ -6,6 +6,7 @@ public class Controleur implements Sujet {
     private static Controleur singleton;
 
     //commentaire
+    //commentaire2
     public static Controleur getControleur() {
         if (singleton == null)
             singleton = new Controleur(new FacadeModele());
