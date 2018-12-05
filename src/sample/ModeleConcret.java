@@ -2,6 +2,7 @@ package sample;
 
 import com.sun.xml.internal.bind.v2.TODO;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static java.lang.Math.sqrt;
@@ -17,13 +18,92 @@ public class ModeleConcret implements Modele {
     // 4: fin marron
     //Variables
 
-    private int[] finish = {60,71};
+    /*private int[] finish = {60,71};*/
+
+    private int[] finish;
+    private int[] etat;
 
 
     public ArrayList<int[]> getCoups(){
         return coups;
     }
 
+    //@:perso
+    //$:caisse marron
+    //.:fin marron
+    //*:caisse sur fin
+    //+:perso sur un finish
+    private String terrain1 = "#### ####\n" +
+            "#  ###  #\n" +
+            "# $ * $ #\n" +
+            "#   +   #\n" +
+            "### .$###\n" +
+            "  # . #\n" +
+            "  #####\n";
+    private void setTerrain(String terrain)
+    {
+        int iterator = 0;
+        ArrayList<Integer> terrain1int = new ArrayList<Integer>();
+        ArrayList<Integer> finishA = new ArrayList<Integer>();
+        for (int i=0; i<terrain.length(); i++)
+        {
+            if(!(terrain.charAt(i) == '\\' && terrain.charAt(i+1) == 'n'))
+            {
+                if(terrain.charAt(i)=='#')
+                {
+                    iterator++;
+                    terrain1int.add(3);
+                }
+                else if(terrain.charAt(i)==' ')
+                {
+                    iterator++;
+                    terrain1int.add(0);
+                }
+                else if(terrain.charAt(i)=='@')
+                {
+                    iterator++;
+                    terrain1int.add(1);
+                }
+                else if(terrain.charAt(i)=='.')
+                {
+                    iterator++;
+                    finishA.add(iterator);
+                    terrain1int.add(4);
+                }
+                else if(terrain.charAt(i)=='+')
+                {
+                    iterator++;
+                    finishA.add(iterator);
+                    terrain1int.add(1);
+                }
+                else if(terrain.charAt(i)=='*')
+                {
+                    iterator++;
+                    finishA.add(iterator);
+                    terrain1int.add(2);
+                }
+                else if(terrain.charAt(i)=='$')
+                {
+                    iterator++;
+                    terrain1int.add(2);
+                }
+
+            }
+        }
+        etat = new int[terrain1int.size()];
+        finish = new int[finishA.size()];
+        for (int j=0; j<etat.length; j++)
+        {
+            etat[j] = terrain1int.get(j).intValue();
+        }
+        for (int k=0; k<finish.length; k++)
+        {
+            finish[k] = finishA.get(k).intValue();
+        }
+
+    }
+
+/*
     private int[] etat = {
             9,9,9,3,3,3,3,3,3,9,9,
             9,3,3,0,0,0,0,3,0,3,9,
@@ -37,6 +117,8 @@ public class ModeleConcret implements Modele {
             9,3,3,3,3,3,3,3,3,3,9,
             9,9,9,9,9,9,9,9,9,9,9
     };
+*/
+
     private ArrayList<int[]> coups = new ArrayList<int[]>(){{add(etat);}};
     private ArrayList<int[]> allCoups = new ArrayList<int[]>(){{add(etat);}};
 
@@ -79,101 +161,7 @@ public class ModeleConcret implements Modele {
     }
 
     public void move(int indice) {
-//        if(indice==1){//RIGHT
-//////            for(int i=0;i<etat.length-1;i++){
-//////                if(etat[i]==1){
-//////                    if(etat[i+1]!=2 && etat[i+1]!=3) {
-//////                        etat[i] = 0;
-//////                        etat[i + 1] = 1;
-//////                        break;
-//////                    }
-//////                    else{
-//////                        if(i<etat.length-2 && etat[i+1]!=3) {
-//////                            if (etat[i + 2] != 3 && etat[i + 2] != 2) {
-//////                                etat[i] = 0;
-//////                                etat[i + 2] = 2;
-//////                                etat[i + 1] = 1;
-//////                                break;
-//////                            }
-//////                        }
-//////                    }
-//////                }
-//////            }
-//////        }
-//////        else if(indice==-1){//LEFT
-//////            for(int i=0;i<etat.length;i++){
-//////                if(etat[i]==1){
-//////                    if(etat[i-1]!=2 && etat[i-1]!=3) {
-//////                        etat[i] = 0;
-//////                        etat[i - 1] = 1;
-//////                        break;
-//////                    }
-//////                    else{
-//////                        if(i>1 && etat[i-1]!=3) {
-//////                            if (etat[i - 2] != 3 && etat[i - 2] != 2) {
-//////                                etat[i] = 0;
-//////                                etat[i - 2] = 2;
-//////                                etat[i - 1] = 1;
-//////                                break;
-//////                            }
-//////                        }
-//////                    }
-//////                }
-//////            }
-//////        }
-//////        else if(indice==2){//UP
-//////            for(int i=0;i<etat.length;i++){
-//////                if(etat[i]==1){
-//////                    if(i>=2*getLineNumber() && etat[i-getLineNumber()]!=2 && etat[i-getLineNumber()]!=3){
-//////                        etat[i]=0;etat[i-getLineNumber()]=1;
-//////                    }
-//////                    else{
-//////                        if(i>=2*getLineNumber() && etat[i-getLineNumber()]!=2 &&  etat[i-getLineNumber()]!=3){
-//////                            if(etat[i-getLineNumber()]==2){
-//////                                if(etat[i-2*getLineNumber()]!=3){
-//////                                    etat[i]=0;etat[i-getLineNumber()]=1;etat[i-2*getLineNumber()]=2;
-//////                                }
-//////                            }
-//////                        }
-//////                        else if(etat[i-getLineNumber()]==2){
-//////                            if(etat[i-2*getLineNumber()]!=2 && etat[i-2*getLineNumber()]!=3){
-//////                                etat[i]=0;etat[i-getLineNumber()]=1; etat[i-2*getLineNumber()]=2;
-//////                            }
-//////                        }
-//////                    }
-//////                    break;
-//////                }
-//////           }
-//////        }
-//////        else if(indice==3){//DOWN
-//////            for(int i=0;i<etat.length;i++){
-//////                if(etat[i]==1 && i<etat.length-getLineNumber() && etat[i+getLineNumber()]!=2 && etat[i+getLineNumber()]!=3){
-//////                    etat[i]=0;etat[i+getLineNumber()]=1;
-//////                    break;
-//////                }
-//////                if(etat[i]==1){
-//////                    if(i>=getLineNumber() && etat[i+getLineNumber()]!=2 && etat[i+getLineNumber()]!=3){
-//////                        etat[i]=0;etat[i+getLineNumber()]=1;
-//////                    }
-//////                    else{
-//////                        if(i>=getLineNumber()){
-//////                            if(etat[i+getLineNumber()]==2){
-//////                                if(etat[i+2*getLineNumber()]!=3){
-//////                                    etat[i]=0;etat[i+getLineNumber()]=1;etat[i+2*getLineNumber()]=2;
-//////                                }
-//////                            }
-//////                        }
-//////                    }
-//////                    break;
-//////                }
-//////            }
-//////        }
-//////        System.out.println(indice);
-//////        for(int i=0;i<finish.length;i++){
-//////            if(etat[finish[i]]!=1 && etat[finish[i]]!=2){
-//////                etat[finish[i]]=4;
-//////            }
-//////        }
+
         int[] newEtat = coups.get(coups.size()-1).clone();
         if(indice==1){//RIGHT
             for(int i=0;i<newEtat.length-1;i++){
