@@ -27,6 +27,7 @@ public class VueIHMFX {
 
 
     public VueIHMFX(Controleur controleur) throws FileNotFoundException {
+        controleur.setTerrain();
         commandeGetEtat = controleur.commandeGetEtat();
         commandeLineNumber=controleur.getLineNumber();
         images = new ImageView[commandeGetEtat.exec().length];

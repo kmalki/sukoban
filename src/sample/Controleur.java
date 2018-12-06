@@ -116,4 +116,8 @@ public class Controleur implements Sujet {
         return facadeModele.canRedo();
 
     }
+
+    public void setTerrain(){
+         facadeModele.setTerrain();
+    }
 }

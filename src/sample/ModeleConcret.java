@@ -28,20 +28,27 @@ public class ModeleConcret implements Modele {
         return coups;
     }
 
+    private ArrayList<int[]> coups = new ArrayList<int[]>();
+    private ArrayList<int[]> allCoups = new ArrayList<int[]>();
+
     //@:perso
     //$:caisse marron
     //.:fin marron
     //*:caisse sur fin
     //+:perso sur un finish
-    private String terrain1 = "#### ####\n" +
+    private String terrain =
+            "         \n" +
+            "#### ####\n" +
             "#  ###  #\n" +
             "# $ * $ #\n" +
             "#   +   #\n" +
             "### .$###\n" +
-            "  # . #\n" +
-            "  #####\n";
-    private void setTerrain(String terrain)
+            "  # . #  \n" +
+            "  #####  \n" +
+            "         \n";
+    public void setTerrain()
     {
+        System.out.println("terrain length:"+ terrain.length());
         int iterator = 0;
         ArrayList<Integer> terrain1int = new ArrayList<Integer>();
         ArrayList<Integer> finishA = new ArrayList<Integer>();
@@ -100,6 +107,10 @@ public class ModeleConcret implements Modele {
         {
             finish[k] = finishA.get(k).intValue();
         }
+        coups.add(etat);
+        allCoups.add(etat);
+        System.out.println("setTerrain done");
+        System.out.println(etat.length);
 
     }
 
@@ -119,11 +130,8 @@ public class ModeleConcret implements Modele {
     };
 */
 
-    private ArrayList<int[]> coups = new ArrayList<int[]>(){{add(etat);}};
-    private ArrayList<int[]> allCoups = new ArrayList<int[]>(){{add(etat);}};
 
-
-    private int nbLine=(int)sqrt(etat.length);
+//    private int nbLine=(int)sqrt(etat.length);
 
     public int[] getFinish(){return finish;}
 
@@ -132,6 +140,7 @@ public class ModeleConcret implements Modele {
     }
 
     public int[] getEtat() {
+        System.out.println(coups.get(coups.size()-1));
         return coups.get(coups.size()-1);
     }
 

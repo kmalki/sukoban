@@ -38,4 +38,8 @@ public class FacadeModele {
     public boolean canRedo() {
         return modele.canRedo();
     }
+
+    public void setTerrain() {
+         modele.setTerrain();
+    }
 }
