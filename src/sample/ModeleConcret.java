@@ -105,6 +105,7 @@ public class ModeleConcret implements Modele {
         }
         for (int k=0; k<finish.length; k++)
         {
+            System.out.println(finishA.get(k).intValue());
             finish[k] = finishA.get(k).intValue();
         }
         coups.add(etat);
@@ -140,7 +141,7 @@ public class ModeleConcret implements Modele {
     }
 
     public int[] getEtat() {
-        System.out.println(coups.get(coups.size()-1));
+        //System.out.println(coups.get(coups.size()-1));
         return coups.get(coups.size()-1);
     }
 

@@ -39,7 +39,6 @@ public class VueIHMFX {
             images[i] = new ImageView(sand);
             gridPane.add(images[i],i%commandeLineNumber.exec(),col);
         }
-        System.out.println("mememe");
         this.reset = new Button("Reset");
         this.undo = new Button("Undo");
         this.redo=new Button("Redo");
