@@ -49,7 +49,7 @@ public class ModeleConcret implements Modele {
     public void setTerrain()
     {
         System.out.println("terrain length:"+ terrain.length());
-        int iterator = 0;
+        int iterator = -1;
         ArrayList<Integer> terrain1int = new ArrayList<Integer>();
         ArrayList<Integer> finishA = new ArrayList<Integer>();
         for (int i=0; i<terrain.length(); i++)
