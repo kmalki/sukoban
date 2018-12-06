@@ -1,9 +1,14 @@
 package sample;
 
+
+import com.sun.deploy.util.StringUtils;
 import com.sun.xml.internal.bind.v2.TODO;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import static java.lang.Math.sqrt;
 
@@ -22,7 +27,7 @@ public class ModeleConcret implements Modele {
 
     private int[] finish;
     private int[] etat;
-
+    private int modulo=0;
 
     public ArrayList<int[]> getCoups(){
         return coups;
@@ -46,8 +51,78 @@ public class ModeleConcret implements Modele {
             "  # . #  \n" +
             "  #####  \n" +
             "         \n";
+
+
+    public void traitement(){
+        File file = new File("MicroCosmos.txt");
+        int i=0;
+        int max=0;
+        try{
+            i++;
+            Scanner sc = new Scanner(file);
+            String elem;
+            while(sc.hasNextLine() && sc.findInLine(";")==null){
+                elem=sc.nextLine();
+                System.out.println(elem);
+                i++;
+                    if(max < elem.length()){
+                        max = elem.length();
+                    }
+            }
+            modulo=max;
+            etat=new int[max*i];
+            sc = new Scanner(file);
+            int fin=0;
+            while(sc.hasNextLine() && sc.findInLine(";")==null){
+                elem=sc.nextLine();
+                for(int k=0;k<elem.length();k++){
+                    switch (elem.charAt(k)){
+                        case '.': fin++;break;
+                        case '+': fin++;break;
+                        case '*': fin++;break;
+                    }
+
+                }
+            }
+            sc = new Scanner(file);
+            finish = new int[fin];
+            fin=0;
+            int iterator=0;
+            while(sc.hasNextLine() && sc.findInLine(";")==null){
+                elem=sc.nextLine();
+                for(int k=0;k<elem.length();k++){
+                    switch (elem.charAt(k)){
+                        case '#': etat[iterator]=3;break;
+                        case ' ': etat[iterator]=0;break;
+                        case '@': etat[iterator]=1;break;
+                        case '.': etat[iterator]=4; finish[fin]=iterator;fin++;break;
+                        case '+': etat[iterator]=1; finish[fin]=iterator;fin++;break;
+                        case '*': etat[iterator]=2; finish[fin]=iterator;fin++;break;
+                        case '$': etat[iterator]=2;break;
+                    }
+                    iterator++;
+                    if(elem.length()<max && k==elem.length()-1){
+                        int j=k;
+                        while(j!=max-1){
+                            j++;
+                            iterator++;
+                            etat[iterator]=0;
+                            System.out.println(j);
+                        }
+                    }
+                }
+            }
+            coups.add(etat);
+            allCoups.add(etat);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        System.out.println("TRAITEMENT: "+max+" : "+i);
+
+    }
     public void setTerrain()
     {
+        traitement();
         System.out.println("terrain length:"+ terrain.length());
         int iterator = -1;
         ArrayList<Integer> terrain1int = new ArrayList<Integer>();
@@ -137,7 +212,7 @@ public class ModeleConcret implements Modele {
     public int[] getFinish(){return finish;}
 
     public int getLineNumber(){
-        return (int)sqrt(etat.length);
+        return modulo;
     }
 
     public int[] getEtat() {

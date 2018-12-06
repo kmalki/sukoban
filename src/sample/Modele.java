@@ -18,5 +18,7 @@ public interface Modele {
 
     boolean canRedo();
 
-    void setTerrain();
+    //void setTerrain();
+
+    void traitement();
 }

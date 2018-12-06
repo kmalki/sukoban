@@ -40,6 +40,6 @@ public class FacadeModele {
     }
 
     public void setTerrain() {
-         modele.setTerrain();
+         modele.traitement();
     }
 }

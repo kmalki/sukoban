@@ -2,11 +2,11 @@ package sample;
 
 public class Main {
     public static void main(String[] args) {
-        Thread thread1 = new Thread() {
-          public void run() {
-              new IHMTerminal().lance();
-          }
-        };
+//        Thread thread1 = new Thread() {
+//          public void run() {
+//              new IHMTerminal().lance();
+//          }
+//        };
 
         Thread thread2 = new Thread() {
             public void run() {
@@ -14,7 +14,7 @@ public class Main {
             }
         };
 
-        thread1.start();
+        //thread1.start();
         thread2.start();
     }
 }

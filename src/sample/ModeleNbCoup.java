@@ -57,5 +57,5 @@ public class ModeleNbCoup implements Modele {
     public boolean canRedo() {
         return modele.canRedo();
     }
-    public void setTerrain(){modele.setTerrain();}
+    public void traitement(){modele.traitement();}
 }
