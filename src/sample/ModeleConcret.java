@@ -54,6 +54,7 @@ public class ModeleConcret implements Modele {
 
 
     public void traitement(){
+        ArrayList<int[]> test = new ArrayList<>();
         File file = new File("MicroCosmos.txt");
         int i=0;
         int max=0;

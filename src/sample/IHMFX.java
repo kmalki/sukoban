@@ -10,77 +10,42 @@ import javafx.stage.Stage;
 import javafx.event.EventHandler;
 
 
-public class IHMFX extends Application implements Observateur {
+public class IHMFX extends Application  {
     VueNbCoupIHMFX vueNbCoup;
     VueIHMFX vue;
     Controleur controleur;
+    ControleurIHMFX controleurIHMFX;
+    Menu vueMenu;
+    Stage primaryStage;
 
-    public void actualise(){
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                vueNbCoup.dessine();
-                vue.dessine();
-                controleur.winornot();
-                if(!controleur.canUndo()){
-                    vue.disableUndo();
-                }
-                else{
-                    vue.enableUndo();
-                }
-                if(!controleur.canRedo()){
-                    vue.disableRedo();
-                }
-                else{
-                    vue.enableRedo();
-                }
-            }
-        });
-    };
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         controleur = Controleur.getControleur();
-        controleur.abonne(this);
-
         vue = new VueIHMFX(controleur);
-        ControleurIHMFX controleurIHMFX = new ControleurIHMFX(controleur,vue);
         vue.gridPane.setAlignment(Pos.CENTER);
         vueNbCoup= new VueNbCoupIHMFX(controleur);
         vueNbCoup.label.setAlignment(Pos.CENTER);
+        controleurIHMFX = new ControleurIHMFX(controleur,primaryStage);
         /* montage de la scene */
-        MonteurScene monteurScene = new MonteurScene();
+        this.primaryStage=primaryStage;
+        this.goToMenu();
 
-        Scene scene = monteurScene.
-                setCentre(vue.gridPane).
-                ajoutBas(vue.reset).
-                ajoutBas(vue.undo).
-                ajoutBas(vue.redo).
-                ajoutBas(vueNbCoup.label).
-                setLargeur(800).
-                setHauteur(800).
-                retourneScene();
-
-
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                switch (event.getCode()) {
-                    case UP:    controleur.move(2); break;
-                    case DOWN:  controleur.move(3); break;
-                    case LEFT:  controleur.move(-1) ; break;
-                    case RIGHT: controleur.move(1)  ; break;
-                }
-            }
-        });
-        primaryStage.setScene(scene);
-
-        primaryStage.setTitle("HUBOCAN");
-        primaryStage.show();
     }
 
     public void lance() {
         launch(new String[]{});
+    }
+
+    public Stage getPrimaryStage(){
+        return primaryStage;
+    }
+    public void goToMenu(){
+        vueMenu = Menu.creerEtAfficher(controleurIHMFX,primaryStage);
+    }
+
+    public void goToNewGame(){
+
     }
 }
 
