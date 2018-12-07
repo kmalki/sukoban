@@ -65,10 +65,11 @@ public class ControleurIHMFX {
             alert.setHeaderText("Vous avez gagné !     VOTRE SCORE : "+ controleur.facadeModele.nbCoup());
             alert.setContentText("Que voulez vous faire ?");
 
+            ButtonType buttonNext = new ButtonType("Niveau Suivant");
             ButtonType buttonReset = new ButtonType("Rejouer");
             ButtonType buttonMenu = new ButtonType("Menu principal");
 
-            alert.getButtonTypes().setAll(buttonReset, buttonMenu);
+            alert.getButtonTypes().setAll(buttonNext,buttonReset, buttonMenu);
 
             Optional<ButtonType> result = alert.showAndWait();
 
@@ -79,6 +80,11 @@ public class ControleurIHMFX {
             else if(result.get() == buttonMenu)
             {
                 goToMenu();
+            }
+            else if(result.get()==buttonNext){
+                controleur.facadeModele.nextNiveau();
+                vueGame.vue.initMatrice();
+                controleur.notifie();
             }
 
         }

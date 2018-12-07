@@ -4,7 +4,7 @@ public class Niveau {
     private String name;
     private int[] plateau;
 
-    private Niveau(String n, int[] plateau){
+    public Niveau(String n, int[] plateau){
         this.name=n;this.plateau=plateau;
     }
 

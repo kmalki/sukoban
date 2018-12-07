@@ -27,18 +27,10 @@ public class VueIHMFX {
 
 
     public VueIHMFX(Controleur controleur) throws FileNotFoundException {
-        controleur.setTerrain();
+        //controleur.setTerrain();
         commandeGetEtat = controleur.commandeGetEtat();
         commandeLineNumber=controleur.getLineNumber();
-        images = new ImageView[commandeGetEtat.exec().length];
-        int col=0;
-        for (int i=0;i<commandeGetEtat.exec().length;i++) {
-            if(i%commandeLineNumber.exec()==0){
-                col++;
-            }
-            images[i] = new ImageView(sand);
-            gridPane.add(images[i],i%commandeLineNumber.exec(),col);
-        }
+        initMatrice();
         this.reset = new Button("Reset");
         this.undo = new Button("Undo");
         this.redo=new Button("Redo");
@@ -80,4 +72,15 @@ public class VueIHMFX {
     public void disableRedo() { redo.setDisable(true);}
     public void enableRedo() { redo.setDisable(false);}
 
+    public void initMatrice(){
+        images = new ImageView[commandeGetEtat.exec().length];
+        int col=0;
+        for (int i=0;i<commandeGetEtat.exec().length;i++) {
+            if(i%commandeLineNumber.exec()==0){
+                col++;
+            }
+            images[i] = new ImageView(sand);
+            gridPane.add(images[i],i%commandeLineNumber.exec(),col);
+        }
+    }
 }

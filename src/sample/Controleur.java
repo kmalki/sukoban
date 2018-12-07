@@ -94,9 +94,8 @@ public class Controleur implements Sujet {
 
     }
 
-    public void setTerrain(){
-         facadeModele.setTerrain();
+
+    public void initNiveaux() {
+        facadeModele.initNiveaux();
     }
-
-
 }

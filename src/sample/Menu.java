@@ -31,6 +31,7 @@ public class Menu {
         laStageUnique.setScene(new Scene(root, 800, 600));
         laStageUnique.show();
         vue.setMonControleur(c);
+        c.controleur.initNiveaux();
         return vue;
     }
 

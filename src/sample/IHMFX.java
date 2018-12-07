@@ -22,10 +22,10 @@ public class IHMFX extends Application  {
     @Override
     public void start(Stage primaryStage) throws Exception{
         controleur = Controleur.getControleur();
-        vue = new VueIHMFX(controleur);
-        vue.gridPane.setAlignment(Pos.CENTER);
-        vueNbCoup= new VueNbCoupIHMFX(controleur);
-        vueNbCoup.label.setAlignment(Pos.CENTER);
+//        vue = new VueIHMFX(controleur);
+//        vue.gridPane.setAlignment(Pos.CENTER);
+//        vueNbCoup= new VueNbCoupIHMFX(controleur);
+//        vueNbCoup.label.setAlignment(Pos.CENTER);
         controleurIHMFX = new ControleurIHMFX(controleur,primaryStage);
         /* montage de la scene */
         this.primaryStage=primaryStage;

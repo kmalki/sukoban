@@ -39,7 +39,12 @@ public class FacadeModele {
         return modele.canRedo();
     }
 
-    public void setTerrain() {
+
+    public void initNiveaux() {
          modele.traitement();
+    }
+
+    public void nextNiveau() {
+        modele.nextNiveau();
     }
 }

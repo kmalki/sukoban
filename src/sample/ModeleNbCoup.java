@@ -58,4 +58,7 @@ public class ModeleNbCoup implements Modele {
         return modele.canRedo();
     }
     public void traitement(){modele.traitement();}
+    public void nextNiveau(){
+        modele.nextNiveau();
+    }
 }

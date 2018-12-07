@@ -21,4 +21,6 @@ public interface Modele {
     //void setTerrain();
 
     void traitement();
+
+    void nextNiveau();
 }

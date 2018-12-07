@@ -28,6 +28,9 @@ public class ModeleConcret implements Modele {
     private int[] finish;
     private int[] etat;
     private int modulo=0;
+    private int level;
+    private int levelMax;
+    ArrayList<Niveau> niveaux;
 
     public ArrayList<int[]> getCoups(){
         return coups;
@@ -54,142 +57,189 @@ public class ModeleConcret implements Modele {
 
 
     public void traitement(){
-        ArrayList<int[]> test = new ArrayList<>();
+        niveaux = new ArrayList<>();
         File file = new File("MicroCosmos.txt");
         int i=0;
         int max=0;
         try{
             i++;
             Scanner sc = new Scanner(file);
+            Scanner sc1;
             String elem;
-            while(sc.hasNextLine() && sc.findInLine(";")==null){
-                elem=sc.nextLine();
-                System.out.println(elem);
-                i++;
-                    if(max < elem.length()){
+            String nom;
+            while(sc.hasNextLine()) {
+                while (sc.hasNextLine() && sc.findInLine(";") == null) {
+                    elem = sc.nextLine();
+                    System.out.println(elem);
+                    i++;
+                    if (max < elem.length()) {
                         max = elem.length();
                     }
-            }
-            modulo=max;
-            etat=new int[max*i];
-            sc = new Scanner(file);
-            int fin=0;
-            while(sc.hasNextLine() && sc.findInLine(";")==null){
-                elem=sc.nextLine();
-                for(int k=0;k<elem.length();k++){
-                    switch (elem.charAt(k)){
-                        case '.': fin++;break;
-                        case '+': fin++;break;
-                        case '*': fin++;break;
-                    }
-
                 }
-            }
-            sc = new Scanner(file);
-            finish = new int[fin];
-            fin=0;
-            int iterator=0;
-            while(sc.hasNextLine() && sc.findInLine(";")==null){
-                elem=sc.nextLine();
-                for(int k=0;k<elem.length();k++){
-                    switch (elem.charAt(k)){
-                        case '#': etat[iterator]=3;break;
-                        case ' ': etat[iterator]=0;break;
-                        case '@': etat[iterator]=1;break;
-                        case '.': etat[iterator]=4; finish[fin]=iterator;fin++;break;
-                        case '+': etat[iterator]=1; finish[fin]=iterator;fin++;break;
-                        case '*': etat[iterator]=2; finish[fin]=iterator;fin++;break;
-                        case '$': etat[iterator]=2;break;
+                nom=sc.nextLine().substring(1);
+                System.out.println(nom);
+                modulo = max;
+                etat = new int[max * i];
+                sc1 = new Scanner(file);
+                int fin = 0;
+                while (sc1.hasNextLine() && sc1.findInLine(";") == null) {
+                    elem = sc1.nextLine();
+                    for (int k = 0; k < elem.length(); k++) {
+                        switch (elem.charAt(k)) {
+                            case '.':
+                                fin++;
+                                break;
+                            case '+':
+                                fin++;
+                                break;
+                            case '*':
+                                fin++;
+                                break;
+                        }
+
                     }
-                    iterator++;
-                    if(elem.length()<max && k==elem.length()-1){
-                        int j=k;
-                        while(j!=max-1){
-                            j++;
-                            iterator++;
-                            etat[iterator]=0;
-                            System.out.println(j);
+                }
+                sc1 = new Scanner(file);
+                finish = new int[fin];
+                fin = 0;
+                int iterator = 0;
+                while (sc1.hasNextLine() && sc1.findInLine(";") == null) {
+                    elem = sc1.nextLine();
+                    for (int k = 0; k < elem.length(); k++) {
+                        switch (elem.charAt(k)) {
+                            case '#':
+                                etat[iterator] = 3;
+                                break;
+                            case ' ':
+                                etat[iterator] = 0;
+                                break;
+                            case '@':
+                                etat[iterator] = 1;
+                                break;
+                            case '.':
+                                etat[iterator] = 4;
+                                finish[fin] = iterator;
+                                fin++;
+                                break;
+                            case '+':
+                                etat[iterator] = 1;
+                                finish[fin] = iterator;
+                                fin++;
+                                break;
+                            case '*':
+                                etat[iterator] = 2;
+                                finish[fin] = iterator;
+                                fin++;
+                                break;
+                            case '$':
+                                etat[iterator] = 2;
+                                break;
+                        }
+                        iterator++;
+                        if (elem.length() < max && k == elem.length() - 1) {
+                            int j = k;
+                            while (j != max - 1) {
+                                j++;
+                                iterator++;
+                                etat[iterator] = 0;
+                                System.out.println(j);
+                            }
                         }
                     }
                 }
+                //coups.add(etat);
+                //allCoups.add(etat);
+                niveaux.add(new Niveau(nom,etat));
+                if(sc.hasNextLine()) {
+                    sc.nextLine();
+                }
             }
-            coups.add(etat);
-            allCoups.add(etat);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        System.out.println("TRAITEMENT: "+max+" : "+i);
-
+        System.out.println("TRAITEMENT: "+max+" : "+i + "length: "+niveaux.size());
+        coups.add(niveaux.get(1).getPlateau());
+        allCoups.add(niveaux.get(1).getPlateau());
+        levelMax=niveaux.size()-1;
+        level=0;
     }
-    public void setTerrain()
-    {
-        traitement();
-        System.out.println("terrain length:"+ terrain.length());
-        int iterator = -1;
-        ArrayList<Integer> terrain1int = new ArrayList<Integer>();
-        ArrayList<Integer> finishA = new ArrayList<Integer>();
-        for (int i=0; i<terrain.length(); i++)
-        {
-            if(!(terrain.charAt(i) == '\\' && terrain.charAt(i+1) == 'n'))
-            {
-                if(terrain.charAt(i)=='#')
-                {
-                    iterator++;
-                    terrain1int.add(3);
-                }
-                else if(terrain.charAt(i)==' ')
-                {
-                    iterator++;
-                    terrain1int.add(0);
-                }
-                else if(terrain.charAt(i)=='@')
-                {
-                    iterator++;
-                    terrain1int.add(1);
-                }
-                else if(terrain.charAt(i)=='.')
-                {
-                    iterator++;
-                    finishA.add(iterator);
-                    terrain1int.add(4);
-                }
-                else if(terrain.charAt(i)=='+')
-                {
-                    iterator++;
-                    finishA.add(iterator);
-                    terrain1int.add(1);
-                }
-                else if(terrain.charAt(i)=='*')
-                {
-                    iterator++;
-                    finishA.add(iterator);
-                    terrain1int.add(2);
-                }
-                else if(terrain.charAt(i)=='$')
-                {
-                    iterator++;
-                    terrain1int.add(2);
-                }
-
-            }
+    public void nextNiveau() {
+        if(level<levelMax){
+            level++;
+            coups.clear();allCoups.clear();
+            coups.add(niveaux.get(level).getPlateau());
+            allCoups.add(niveaux.get(level).getPlateau());
         }
-        etat = new int[terrain1int.size()];
-        finish = new int[finishA.size()];
-        for (int j=0; j<etat.length; j++)
-        {
-            etat[j] = terrain1int.get(j).intValue();
-        }
-        for (int k=0; k<finish.length; k++)
-        {
-            System.out.println(finishA.get(k).intValue());
-            finish[k] = finishA.get(k).intValue();
-        }
-        coups.add(etat);
-        allCoups.add(etat);
-        System.out.println("setTerrain done");
-        System.out.println(etat.length);
-
     }
+        //    public void setTerrain()
+//    {
+//        traitement();
+//        System.out.println("terrain length:"+ terrain.length());
+//        int iterator = -1;
+//        ArrayList<Integer> terrain1int = new ArrayList<Integer>();
+//        ArrayList<Integer> finishA = new ArrayList<Integer>();
+//        for (int i=0; i<terrain.length(); i++)
+//        {
+//            if(!(terrain.charAt(i) == '\\' && terrain.charAt(i+1) == 'n'))
+//            {
+//                if(terrain.charAt(i)=='#')
+//                {
+//                    iterator++;
+//                    terrain1int.add(3);
+//                }
+//                else if(terrain.charAt(i)==' ')
+//                {
+//                    iterator++;
+//                    terrain1int.add(0);
+//                }
+//                else if(terrain.charAt(i)=='@')
+//                {
+//                    iterator++;
+//                    terrain1int.add(1);
+//                }
+//                else if(terrain.charAt(i)=='.')
+//                {
+//                    iterator++;
+//                    finishA.add(iterator);
+//                    terrain1int.add(4);
+//                }
+//                else if(terrain.charAt(i)=='+')
+//                {
+//                    iterator++;
+//                    finishA.add(iterator);
+//                    terrain1int.add(1);
+//                }
+//                else if(terrain.charAt(i)=='*')
+//                {
+//                    iterator++;
+//                    finishA.add(iterator);
+//                    terrain1int.add(2);
+//                }
+//                else if(terrain.charAt(i)=='$')
+//                {
+//                    iterator++;
+//                    terrain1int.add(2);
+//                }
+//
+//            }
+//        }
+//        etat = new int[terrain1int.size()];
+//        finish = new int[finishA.size()];
+//        for (int j=0; j<etat.length; j++)
+//        {
+//            etat[j] = terrain1int.get(j).intValue();
+//        }
+//        for (int k=0; k<finish.length; k++)
+//        {
+//            System.out.println(finishA.get(k).intValue());
+//            finish[k] = finishA.get(k).intValue();
+//        }
+//        coups.add(etat);
+//        allCoups.add(etat);
+//        System.out.println("setTerrain done");
+//        System.out.println(etat.length);
+//
+//    }
 
 /*
     private int[] etat = {
@@ -217,7 +267,6 @@ public class ModeleConcret implements Modele {
     }
 
     public int[] getEtat() {
-        //System.out.println(coups.get(coups.size()-1));
         return coups.get(coups.size()-1);
     }
 
