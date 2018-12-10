@@ -3,8 +3,7 @@ package sample;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
@@ -38,11 +37,11 @@ public class MonteurScene {
     Scene retourneScene() {
         assert (centre !=null);
         GridPane gridPane = new GridPane();
-
         gridPane.setAlignment(Pos.CENTER);
         gridPane.add(centre,0,0);
         gridPane.setMinSize(largeur, hauteur);
         centre.setMinSize(largeur, hauteur*7/8);
+        //centre.setCenterShape(true);
 
         //Setting the padding
         gridPane.setPadding(new Insets(10, 10, 10, 10));
@@ -51,7 +50,6 @@ public class MonteurScene {
             GridPane gridPaneBas = new GridPane();
             gridPaneBas.setAlignment(Pos.CENTER);
             gridPaneBas.setMinSize(largeur, hauteur/8);
-            gridPaneBas.setPadding(new Insets(10, 10, 10, 10));
             //Setting the padding
             gridPane.setPadding(new Insets(10, 10, 10, 10));
             int i=0;
@@ -60,6 +58,7 @@ public class MonteurScene {
                 gridPaneBas.add(n,i,0);
                 i++;
             }
+            gridPaneBas.setHgap(20);
             gridPane.add(gridPaneBas,0,1);
         }
 

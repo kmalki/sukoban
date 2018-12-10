@@ -33,6 +33,7 @@ public class ControleurIHMFX {
         vueGame.vue.undo.setOnAction(new ActionUndo());
         vueGame.vue.redo.setOnAction(new ActionRedo());
         vueGame.vue.menu.setOnAction(new ActionMenu());
+        vueGame.vue.replay.setOnAction(new ActionReplay());
     }
 
     public void goToMenu(){
@@ -45,6 +46,17 @@ public class ControleurIHMFX {
 
     public void jouer(int numLevel) throws FileNotFoundException {
         goToNewGame(numLevel);
+    }
+
+    class ActionReplay implements EventHandler<ActionEvent> {
+        public void handle(ActionEvent event) {
+            try {
+                controleur.replay();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
     }
 
     class ActionMenu implements EventHandler<ActionEvent> {
@@ -100,7 +112,7 @@ public class ControleurIHMFX {
                 System.out.println("NEXT");
                 controleur.facadeModele.nextNiveau();
                 vueGame= Game.newGame(controleur,this,primaryStage,controleur.getNiveau());
-                controleur.notifie();
+                controleur.notifie(0);
             }
         }
     }

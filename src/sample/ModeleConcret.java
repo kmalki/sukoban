@@ -56,6 +56,10 @@ public class ModeleConcret implements Modele {
         return level;
     }
 
+    public String getNomNiveau(){
+        return niveaux.get(level).getName();
+    }
+
     public void traitement(){
         niveaux = new ArrayList<>();
         File file = new File("MicroCosmos.txt");
@@ -289,7 +293,20 @@ public class ModeleConcret implements Modele {
         coups.add(allCoups.get(coups.size()));
     }
 
+    public void freeCoups(){
+        coups.clear();
+    }
 
+    public ArrayList<int[]> getAllCoups(){
+        return allCoups;
+    }
+
+    public void replay() {
+        if(coups.size()<allCoups.size()){
+            coups.add(allCoups.get(coups.size()));
+        }
+
+    }
 
     public void undo(){
         System.out.println("undo");

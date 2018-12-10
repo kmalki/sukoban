@@ -73,4 +73,19 @@ public class ModeleNbCoup implements Modele {
     public int getLevel() {
         return modele.getLevel();
     }
+
+    public String getNomNiveau() {
+        return modele.getNomNiveau();
+    }
+
+    public ArrayList<int[]> getAllCoups() {
+        return modele.getAllCoups();
+    }
+
+    public void replay() {
+        modele.replay();
+    }
+    public void freeCoups(){
+        modele.freeCoups();
+    }
 }

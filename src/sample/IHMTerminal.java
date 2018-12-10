@@ -7,7 +7,7 @@ public class IHMTerminal implements Observateur{
     Scanner scanner = new Scanner(System.in);
 
     @Override
-    public void actualise() {
+    public void actualise(int j) {
         dessine();
         System.out.print(">");
     }

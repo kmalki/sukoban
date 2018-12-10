@@ -1,15 +1,17 @@
 package sample;
 
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class VueIHMFX {
+     Button replay;
     Button redo;
     Button reset;
     Button undo;
@@ -28,12 +30,14 @@ public class VueIHMFX {
 
 
     public VueIHMFX(Controleur controleur) throws FileNotFoundException {
+        gridPane.setAlignment(Pos.CENTER);
         commandeGetEtat = controleur.commandeGetEtat();
         commandeLineNumber=controleur.getLineNumber();
         this.reset = new Button("Reset");
         this.undo = new Button("Undo");
         this.redo=new Button("Redo");
         this.menu=new Button("Menu");
+        this.replay=new Button("Replay");
         this.undo.setDisable(true);
         this.redo.setDisable(true);
         dessine();

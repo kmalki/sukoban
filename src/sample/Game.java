@@ -21,30 +21,53 @@ public class Game implements Observateur {
     ControleurIHMFX cont;
 
 
-    public void actualise(){
+    public void actualise(int j){
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                vueNbCoup.dessine();
-                vue.dessine();
-                try {
-                    cont.winornot();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+//                if (j == 1){
+//                    vueNbCoup.dessine();
+//                vue.dessine();
+//                try {
+//                    cont.winornot();
+//                } catch (FileNotFoundException e) {
+//                    e.printStackTrace();
+//                }
+//                if (!controleur.canUndo()) {
+//                    vue.disableUndo();
+//                } else {
+//                    vue.enableUndo();
+//                }
+//                if (!controleur.canRedo()) {
+//                    vue.disableRedo();
+//                } else {
+//                    vue.enableRedo();
+//                }
+//                try {
+//                    Thread.sleep(1000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }else{
+                    vueNbCoup.dessine();
+                    vue.dessine();
+                    try {
+                        cont.winornot();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                    if (!controleur.canUndo()) {
+                        vue.disableUndo();
+                    } else {
+                        vue.enableUndo();
+                    }
+                    if (!controleur.canRedo()) {
+                        vue.disableRedo();
+                    } else {
+                        vue.enableRedo();
+                    }
                 }
-                if(!controleur.canUndo()){
-                    vue.disableUndo();
-                }
-                else{
-                    vue.enableUndo();
-                }
-                if(!controleur.canRedo()){
-                    vue.disableRedo();
-                }
-                else{
-                    vue.enableRedo();
-                }
-            }
+       // }
         });
     };
 
@@ -64,12 +87,15 @@ public class Game implements Observateur {
         vueG.controleur.setNiveau(niveau);
         vueG.vueNbCoup=new VueNbCoupIHMFX(controleur);
         vueG.vue = new VueIHMFX(controleur);
+        vueG.vueNbCoup.dessineNom(controleur.getNomNiveau());
         MonteurScene monteurScene = new MonteurScene();
         Scene scene = monteurScene.
                 setLargeur((int)laStageUnique.getWidth()).
                 setHauteur((int)laStageUnique.getHeight()).
                 setCentre(vueG.vue .gridPane).
+                ajoutBas(vueG.vueNbCoup.label2).
                 ajoutBas(vueG.vue.menu).
+                ajoutBas(vueG.vue.replay).
                 ajoutBas(vueG.vue .reset).
                 ajoutBas(vueG.vue .undo).
                 ajoutBas(vueG.vue .redo).

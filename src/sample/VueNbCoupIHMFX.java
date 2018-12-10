@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 public class VueNbCoupIHMFX  {
     Controleur controleur;
     Label label = new Label("0");
+    Label label2 = new Label("");
     CommandeInt commande;
 
     public VueNbCoupIHMFX(Controleur controleur) {
@@ -13,7 +14,11 @@ public class VueNbCoupIHMFX  {
     }
 
     public void dessine() {
-        label.setText(commande.exec()+"");
+        label.setText("Nombre de coups : "+commande.exec()+"");
+    }
+
+    public void dessineNom(String s){
+        label2.setText(s);
     }
 
 }

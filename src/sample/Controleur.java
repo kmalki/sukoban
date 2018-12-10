@@ -30,24 +30,24 @@ public class Controleur implements Sujet {
     }
 
     @Override
-    public void notifie() {
+    public void notifie(int j) {
         for (Observateur observateur:observateurs)
-            observateur.actualise();
+            observateur.actualise(j);
     }
 
     public void move(int x) {
         facadeModele.move(x);
-        notifie();
+        notifie(0);
     }
 
     public void reset() {
         facadeModele.reset();
-        notifie();
+        notifie(0);
     }
 
     public void undo() {
         facadeModele.undo();
-        notifie();
+        notifie(0);
     }
 
     public CommandeInt commandeNbCoup() {
@@ -84,7 +84,7 @@ public class Controleur implements Sujet {
 
     public void redo() {
         facadeModele.redo();
-        notifie();
+        notifie(0);
     }
 
     public boolean canRedo() {
@@ -104,10 +104,23 @@ public class Controleur implements Sujet {
 
     public void setNiveau(int i) {
         facadeModele.setNiveau(i);
-        notifie();
+        notifie(0);
     }
 
     public int getNiveau() {
         return facadeModele.getNiveau();
+    }
+
+    public String getNomNiveau() {
+        return facadeModele.getNomNiveau();
+    }
+
+    public void replay() throws InterruptedException {
+        facadeModele.freeCoups();
+        for(int i=0;i<facadeModele.getAllCoups().size();i++){
+            facadeModele.replay();
+            notifie(1);
+
+        }
     }
 }

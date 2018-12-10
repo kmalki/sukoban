@@ -1,5 +1,5 @@
 package sample;
 
 public interface Observateur {
-    void actualise();
+    void actualise(int j);
 }

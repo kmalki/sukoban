@@ -27,4 +27,12 @@ public interface Modele {
 
 
     int getLevel();
+
+    String getNomNiveau();
+
+    ArrayList<int[]> getAllCoups();
+
+    void replay();
+
+    void freeCoups();
 }
