@@ -11,8 +11,6 @@ import javafx.event.EventHandler;
 
 
 public class IHMFX extends Application  {
-    VueNbCoupIHMFX vueNbCoup;
-    VueIHMFX vue;
     Controleur controleur;
     ControleurIHMFX controleurIHMFX;
     Menu vueMenu;
@@ -42,10 +40,6 @@ public class IHMFX extends Application  {
     }
     public void goToMenu(){
         vueMenu = Menu.creerEtAfficher(controleurIHMFX,primaryStage);
-    }
-
-    public void goToNewGame(){
-
     }
 }
 

@@ -28,10 +28,11 @@ public class Menu {
         }
         Menu vue = fxmlLoader.getController();
         laStageUnique.setTitle("Menu");
-        laStageUnique.setScene(new Scene(root, 800, 600));
+        laStageUnique.setMaximized(true);
+        laStageUnique.setScene(new Scene(root, laStageUnique.getWidth(), laStageUnique.getHeight()));
+
         laStageUnique.show();
         vue.setMonControleur(c);
-        c.controleur.initNiveaux();
         return vue;
     }
 
@@ -44,6 +45,10 @@ public class Menu {
     }
 
     public void goToNewGame() throws FileNotFoundException {
-        monControleur.goToNewGame();
+        monControleur.goToNewGame(0);
+    }
+
+    public void goToSelection() throws FileNotFoundException {
+        monControleur.goToSelection();
     }
 }

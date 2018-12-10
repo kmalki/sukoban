@@ -20,7 +20,6 @@ public class Game implements Observateur {
     VueIHMFX vue;
     ControleurIHMFX cont;
 
-    VBox topNiveau;
 
     public void actualise(){
         Platform.runLater(new Runnable() {
@@ -28,7 +27,11 @@ public class Game implements Observateur {
             public void run() {
                 vueNbCoup.dessine();
                 vue.dessine();
-                cont.winornot();
+                try {
+                    cont.winornot();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
                 if(!controleur.canUndo()){
                     vue.disableUndo();
                 }
@@ -45,7 +48,7 @@ public class Game implements Observateur {
         });
     };
 
-    public static Game newGame(Controleur controleur, ControleurIHMFX c, Stage laStageUnique) throws FileNotFoundException {
+    public static Game newGame(Controleur controleur, ControleurIHMFX c, Stage laStageUnique,int niveau) throws FileNotFoundException {
         URL location = Menu.class.getResource("/views/Game.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(location);
         Parent root = null;
@@ -55,25 +58,24 @@ public class Game implements Observateur {
             e.printStackTrace();
         }
         Game vueG = fxmlLoader.getController();
-        laStageUnique.setTitle("HUBOKAN");
-        laStageUnique.setScene(new Scene(root, 800, 600));
-        laStageUnique.show();
         vueG.setMonControleurIHMFX(c);
         vueG.setMonControleur(controleur);
         controleur.abonne(vueG);
+        vueG.controleur.setNiveau(niveau);
         vueG.vueNbCoup=new VueNbCoupIHMFX(controleur);
         vueG.vue = new VueIHMFX(controleur);
         MonteurScene monteurScene = new MonteurScene();
         Scene scene = monteurScene.
+                setLargeur((int)laStageUnique.getWidth()).
+                setHauteur((int)laStageUnique.getHeight()).
                 setCentre(vueG.vue .gridPane).
+                ajoutBas(vueG.vue.menu).
                 ajoutBas(vueG.vue .reset).
                 ajoutBas(vueG.vue .undo).
                 ajoutBas(vueG.vue .redo).
                 ajoutBas(vueG.vueNbCoup.label).
-                setLargeur(800).
-                setHauteur(800).
-                retourneScene();
 
+                retourneScene();
 
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -87,7 +89,8 @@ public class Game implements Observateur {
             }
         });
         laStageUnique.setScene(scene);
-        laStageUnique.setTitle("HUBOCAN");
+        laStageUnique.setTitle("Sukoban");
+        laStageUnique.setMaximized(true);
         laStageUnique.show();
         return vueG;
     }
@@ -99,4 +102,5 @@ public class Game implements Observateur {
     private void setMonControleur(Controleur c) {
         controleur=c;
     }
+
 }

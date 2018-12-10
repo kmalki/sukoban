@@ -1,5 +1,7 @@
 package sample;
 
+import java.util.ArrayList;
+
 public class FacadeModele {
     ModeleNbCoup modele = new ModeleNbCoup(new ModeleConcret());
 
@@ -46,5 +48,17 @@ public class FacadeModele {
 
     public void nextNiveau() {
         modele.nextNiveau();
+    }
+
+    public ArrayList<Niveau> getNiveaux() {
+        return modele.getNiveaux();
+    }
+
+    public void setNiveau(int i) {
+        modele.setNiveau(i);
+    }
+
+    public int getNiveau() {
+        return modele.getLevel();
     }
 }

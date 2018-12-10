@@ -12,8 +12,6 @@ import javafx.scene.control.ButtonType;
 public class Controleur implements Sujet {
     private static Controleur singleton;
 
-    //commentaire
-    //commentaire2
     public static Controleur getControleur() {
         if (singleton == null)
             singleton = new Controleur(new FacadeModele());
@@ -97,5 +95,19 @@ public class Controleur implements Sujet {
 
     public void initNiveaux() {
         facadeModele.initNiveaux();
+    }
+
+    public ArrayList<Niveau> getNiveaux() {
+        return facadeModele.getNiveaux();
+    }
+
+
+    public void setNiveau(int i) {
+        facadeModele.setNiveau(i);
+        notifie();
+    }
+
+    public int getNiveau() {
+        return facadeModele.getNiveau();
     }
 }

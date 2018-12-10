@@ -25,9 +25,6 @@ public class ModeleConcret implements Modele {
 
     /*private int[] finish = {60,71};*/
 
-    private int[] finish;
-    private int[] etat;
-    private int modulo=0;
     private int level;
     private int levelMax;
     ArrayList<Niveau> niveaux;
@@ -55,36 +52,32 @@ public class ModeleConcret implements Modele {
             "  #####  \n" +
             "         \n";
 
+    public int getLevel(){
+        return level;
+    }
 
     public void traitement(){
         niveaux = new ArrayList<>();
         File file = new File("MicroCosmos.txt");
         int i=0;
         int max=0;
+        int cpt=0;
+        int cpt1=0;
+        int fin=0;
         try{
-            i++;
             Scanner sc = new Scanner(file);
-            Scanner sc1;
+            Scanner sc1 = new Scanner(file);
             String elem;
             String nom;
-            while(sc.hasNextLine()) {
+            while(sc.hasNextLine()){
+                max=0;i=0;fin=0;
                 while (sc.hasNextLine() && sc.findInLine(";") == null) {
-                    elem = sc.nextLine();
-                    System.out.println(elem);
+                    elem=sc.nextLine();
+                    cpt++;
                     i++;
-                    if (max < elem.length()) {
-                        max = elem.length();
-                    }
-                }
-                nom=sc.nextLine().substring(1);
-                System.out.println(nom);
-                modulo = max;
-                etat = new int[max * i];
-                sc1 = new Scanner(file);
-                int fin = 0;
-                while (sc1.hasNextLine() && sc1.findInLine(";") == null) {
-                    elem = sc1.nextLine();
-                    for (int k = 0; k < elem.length(); k++) {
+                    //System.out.println(elem + "max : "+max +" i : "+i );
+                    if(elem.length()>max){max=elem.length();}
+                    for(int k=0;k<elem.length();k++){
                         switch (elem.charAt(k)) {
                             case '.':
                                 fin++;
@@ -96,17 +89,20 @@ public class ModeleConcret implements Modele {
                                 fin++;
                                 break;
                         }
-
                     }
                 }
-                sc1 = new Scanner(file);
-                finish = new int[fin];
-                fin = 0;
-                int iterator = 0;
-                while (sc1.hasNextLine() && sc1.findInLine(";") == null) {
-                    elem = sc1.nextLine();
-                    for (int k = 0; k < elem.length(); k++) {
-                        switch (elem.charAt(k)) {
+                nom=sc.nextLine().substring(1);
+                cpt++;
+                System.out.println(nom + ":" +fin +" length:"+max*i + "max : "+max +" i : "+i);
+                int[] etat = new int[max*i];
+                int iterator=0;
+                int[] finish = new int[fin];
+                fin=0;
+                while(cpt1<cpt-1 && sc1.hasNextLine() && sc1.findInLine(";")==null){
+                    elem=sc1.nextLine();
+                    for(int o=0;o<elem.length();o++){
+                        System.out.println(iterator);
+                        switch (elem.charAt(o)) {
                             case '#':
                                 etat[iterator] = 3;
                                 break;
@@ -118,16 +114,21 @@ public class ModeleConcret implements Modele {
                                 break;
                             case '.':
                                 etat[iterator] = 4;
+                                System.out.println(elem.charAt(o));
                                 finish[fin] = iterator;
                                 fin++;
                                 break;
                             case '+':
                                 etat[iterator] = 1;
+                                System.out.println(elem.charAt(o));
+
                                 finish[fin] = iterator;
                                 fin++;
                                 break;
                             case '*':
                                 etat[iterator] = 2;
+                                System.out.println(elem.charAt(o));
+
                                 finish[fin] = iterator;
                                 fin++;
                                 break;
@@ -136,40 +137,50 @@ public class ModeleConcret implements Modele {
                                 break;
                         }
                         iterator++;
-                        if (elem.length() < max && k == elem.length() - 1) {
-                            int j = k;
+                        if (elem.length() < max && o == elem.length() - 1) {
+                            int j = o;
                             while (j != max - 1) {
                                 j++;
-                                iterator++;
                                 etat[iterator] = 0;
+                                iterator++;
                                 System.out.println(j);
                             }
                         }
                     }
+                    cpt1++;
+
                 }
-                //coups.add(etat);
-                //allCoups.add(etat);
-                niveaux.add(new Niveau(nom,etat));
                 if(sc.hasNextLine()) {
                     sc.nextLine();
+                    cpt++;
+                    cpt1+=2;
+                    sc1.nextLine();sc1.nextLine();
                 }
+                System.out.println(cpt +":"+cpt1);
+                niveaux.add(new Niveau(nom,etat.clone(),finish.clone(),max));
+                level++;
             }
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-        System.out.println("TRAITEMENT: "+max+" : "+i + "length: "+niveaux.size());
-        coups.add(niveaux.get(1).getPlateau());
-        allCoups.add(niveaux.get(1).getPlateau());
         levelMax=niveaux.size()-1;
-        level=0;
     }
     public void nextNiveau() {
         if(level<levelMax){
             level++;
-            coups.clear();allCoups.clear();
-            coups.add(niveaux.get(level).getPlateau());
-            allCoups.add(niveaux.get(level).getPlateau());
+            setNiveau(level);
         }
+    }
+    public ArrayList<Niveau> getNiveaux(){
+        return niveaux;
+    }
+    public void setNiveau(int i){
+        level=i;
+        coups.clear();allCoups.clear();
+        coups.add(niveaux.get(level).getPlateau());
+        System.out.println(niveaux.get(level).getName()+"///////////////////////////////////");
+        allCoups.add(niveaux.get(level).getPlateau());
     }
         //    public void setTerrain()
 //    {
@@ -260,22 +271,19 @@ public class ModeleConcret implements Modele {
 
 //    private int nbLine=(int)sqrt(etat.length);
 
-    public int[] getFinish(){return finish;}
+    public int[] getFinish(){return niveaux.get(level).getFinish();}
 
     public int getLineNumber(){
-        return modulo;
+        return niveaux.get(level).getModulo();
     }
 
     public int[] getEtat() {
-        return coups.get(coups.size()-1);
+        return coups.get(coups.size() - 1);
     }
 
     public boolean canUndo(){return getCoups().size()>1;}
 
     public boolean canRedo(){return coups.size()<allCoups.size();}
-
-
-    public void setEtat(int[] etats){etat=etats;}
 
     public void redo(){
         coups.add(allCoups.get(coups.size()));
@@ -296,7 +304,7 @@ public class ModeleConcret implements Modele {
     }
 
     public void move(int indice) {
-
+        System.out.println("LEVEEEEEEEEEEEEEEEEEEEEEEL " +level);
         int[] newEtat = coups.get(coups.size()-1).clone();
         if(indice==1){//RIGHT
             for(int i=0;i<newEtat.length-1;i++){
@@ -388,9 +396,9 @@ public class ModeleConcret implements Modele {
             }
         }
         System.out.println(indice);
-        for(int i=0;i<finish.length;i++){
-            if(newEtat[finish[i]]!=1 && newEtat[finish[i]]!=2){
-                newEtat[finish[i]]=4;
+        for(int i=0;i<getFinish().length;i++){
+            if(newEtat[getFinish()[i]]!=1 && newEtat[getFinish()[i]]!=2){
+                newEtat[getFinish()[i]]=4;
             }
         }
         coups.add(newEtat);
@@ -406,7 +414,7 @@ public class ModeleConcret implements Modele {
     }
     @Override
     public void reset() {
-        coups.clear();coups.add(etat);
-        allCoups.clear();allCoups.add(etat);
+        coups.clear();coups.add(getNiveaux().get(level).getPlateau().clone());
+        allCoups.clear();allCoups.add(getNiveaux().get(level).getPlateau().clone());
     }
 }

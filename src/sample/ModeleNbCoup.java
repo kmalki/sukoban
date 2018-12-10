@@ -20,7 +20,6 @@ public class ModeleNbCoup implements Modele {
     }
     public int[] getFinish(){return modele.getFinish();}
     public ArrayList<int[]> getCoups(){return modele.getCoups();}
-    public void setEtat(int[] etats){modele.setEtat(etats);}
 
     public void move(int indice) {
         System.out.println("move");
@@ -60,5 +59,18 @@ public class ModeleNbCoup implements Modele {
     public void traitement(){modele.traitement();}
     public void nextNiveau(){
         modele.nextNiveau();
+        nbCoup=0;
+    }
+
+    public ArrayList<Niveau> getNiveaux() {
+        return modele.getNiveaux();
+    }
+
+    public void setNiveau(int i) {
+        modele.setNiveau(i);
+    }
+
+    public int getLevel() {
+        return modele.getLevel();
     }
 }

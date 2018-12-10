@@ -14,30 +14,45 @@ import java.util.Optional;
 
 public class ControleurIHMFX {
     Controleur controleur;
-    VueIHMFX vue;
     Menu vueMenu;
     Stage primaryStage;
-    VueNbCoupIHMFX vueNbCoup;
     Game vueGame;
+    Selection vueSelection;
 
 
     ControleurIHMFX(Controleur controleur,Stage primaryStage) {
         this.controleur = controleur;
         this.primaryStage=primaryStage;
+        controleur.initNiveaux();
 
     }
 
-    public void goToNewGame() throws FileNotFoundException {
-        vueGame=Game.newGame(controleur,this,primaryStage);
+    public void goToNewGame(int i) throws FileNotFoundException {
+        vueGame=Game.newGame(controleur,this,primaryStage,i);
         vueGame.vue.reset.setOnAction(new ActionReset());
         vueGame.vue.undo.setOnAction(new ActionUndo());
         vueGame.vue.redo.setOnAction(new ActionRedo());
+        vueGame.vue.menu.setOnAction(new ActionMenu());
     }
 
     public void goToMenu(){
         vueMenu=Menu.creerEtAfficher(this,this.primaryStage);
     }
 
+    public void goToSelection() throws FileNotFoundException {
+        vueSelection=Selection.selectionner(this.controleur,this,this.primaryStage);
+    }
+
+    public void jouer(int numLevel) throws FileNotFoundException {
+        goToNewGame(numLevel);
+    }
+
+    class ActionMenu implements EventHandler<ActionEvent> {
+        public void handle(ActionEvent event) {
+            goToMenu();
+        }
+
+    }
 
     class ActionReset implements EventHandler<ActionEvent> {
         public void handle(ActionEvent event) {
@@ -54,10 +69,10 @@ public class ControleurIHMFX {
         public void handle(ActionEvent event){controleur.redo();}
     }
     public void quitter(){
-
+        primaryStage.close();
     }
 
-    public void winornot() {
+    public void winornot() throws FileNotFoundException {
         if(controleur.facadeModele.winornot()==true){
             System.out.println("WIN");
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -82,11 +97,11 @@ public class ControleurIHMFX {
                 goToMenu();
             }
             else if(result.get()==buttonNext){
+                System.out.println("NEXT");
                 controleur.facadeModele.nextNiveau();
-                vueGame.vue.initMatrice();
+                vueGame= Game.newGame(controleur,this,primaryStage,controleur.getNiveau());
                 controleur.notifie();
             }
-
         }
     }
 }
