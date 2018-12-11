@@ -1,16 +1,9 @@
 package sample;
 
-
-import com.sun.deploy.util.StringUtils;
-import com.sun.xml.internal.bind.v2.TODO;
-
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Scanner;
-
-import static java.lang.Math.sqrt;
 
 public class ModeleConcret implements Modele {
 
@@ -23,7 +16,6 @@ public class ModeleConcret implements Modele {
     // 4: fin marron
     //Variables
 
-    /*private int[] finish = {60,71};*/
 
     private int level;
     private int levelMax;
@@ -33,24 +25,14 @@ public class ModeleConcret implements Modele {
         return coups;
     }
 
-    private ArrayList<int[]> coups = new ArrayList<int[]>();
-    private ArrayList<int[]> allCoups = new ArrayList<int[]>();
+    private ArrayList<int[]> coups = new ArrayList<>();
+    private ArrayList<int[]> allCoups = new ArrayList<>();
 
     //@:perso
     //$:caisse marron
     //.:fin marron
     //*:caisse sur fin
     //+:perso sur un finish
-    private String terrain =
-            "         \n" +
-            "#### ####\n" +
-            "#  ###  #\n" +
-            "# $ * $ #\n" +
-            "#   +   #\n" +
-            "### .$###\n" +
-            "  # . #  \n" +
-            "  #####  \n" +
-            "         \n";
 
     public int getLevel(){
         return level;
@@ -58,6 +40,12 @@ public class ModeleConcret implements Modele {
 
     public String getNomNiveau(){
         return niveaux.get(level).getName();
+    }
+
+    public void precNiveau() {
+        if(level>0){
+            level--;
+        }
     }
 
     public void traitement(){
@@ -79,7 +67,6 @@ public class ModeleConcret implements Modele {
                     elem=sc.nextLine();
                     cpt++;
                     i++;
-                    //System.out.println(elem + "max : "+max +" i : "+i );
                     if(elem.length()>max){max=elem.length();}
                     for(int k=0;k<elem.length();k++){
                         switch (elem.charAt(k)) {
@@ -186,94 +173,6 @@ public class ModeleConcret implements Modele {
         System.out.println(niveaux.get(level).getName()+"///////////////////////////////////");
         allCoups.add(niveaux.get(level).getPlateau());
     }
-        //    public void setTerrain()
-//    {
-//        traitement();
-//        System.out.println("terrain length:"+ terrain.length());
-//        int iterator = -1;
-//        ArrayList<Integer> terrain1int = new ArrayList<Integer>();
-//        ArrayList<Integer> finishA = new ArrayList<Integer>();
-//        for (int i=0; i<terrain.length(); i++)
-//        {
-//            if(!(terrain.charAt(i) == '\\' && terrain.charAt(i+1) == 'n'))
-//            {
-//                if(terrain.charAt(i)=='#')
-//                {
-//                    iterator++;
-//                    terrain1int.add(3);
-//                }
-//                else if(terrain.charAt(i)==' ')
-//                {
-//                    iterator++;
-//                    terrain1int.add(0);
-//                }
-//                else if(terrain.charAt(i)=='@')
-//                {
-//                    iterator++;
-//                    terrain1int.add(1);
-//                }
-//                else if(terrain.charAt(i)=='.')
-//                {
-//                    iterator++;
-//                    finishA.add(iterator);
-//                    terrain1int.add(4);
-//                }
-//                else if(terrain.charAt(i)=='+')
-//                {
-//                    iterator++;
-//                    finishA.add(iterator);
-//                    terrain1int.add(1);
-//                }
-//                else if(terrain.charAt(i)=='*')
-//                {
-//                    iterator++;
-//                    finishA.add(iterator);
-//                    terrain1int.add(2);
-//                }
-//                else if(terrain.charAt(i)=='$')
-//                {
-//                    iterator++;
-//                    terrain1int.add(2);
-//                }
-//
-//            }
-//        }
-//        etat = new int[terrain1int.size()];
-//        finish = new int[finishA.size()];
-//        for (int j=0; j<etat.length; j++)
-//        {
-//            etat[j] = terrain1int.get(j).intValue();
-//        }
-//        for (int k=0; k<finish.length; k++)
-//        {
-//            System.out.println(finishA.get(k).intValue());
-//            finish[k] = finishA.get(k).intValue();
-//        }
-//        coups.add(etat);
-//        allCoups.add(etat);
-//        System.out.println("setTerrain done");
-//        System.out.println(etat.length);
-//
-//    }
-
-/*
-    private int[] etat = {
-            9,9,9,3,3,3,3,3,3,9,9,
-            9,3,3,0,0,0,0,3,0,3,9,
-            9,3,0,0,0,2,3,9,3,3,9,
-            9,3,0,3,2,0,3,9,3,3,9,
-            9,3,0,0,1,0,3,9,3,3,9,
-            9,3,0,0,0,4,3,9,3,3,9,
-            9,3,0,0,0,4,0,3,0,3,9,
-            9,3,0,0,0,0,0,0,0,3,9,
-            9,3,0,0,0,0,0,0,0,3,9,
-            9,3,3,3,3,3,3,3,3,3,9,
-            9,9,9,9,9,9,9,9,9,9,9
-    };
-*/
-
-
-//    private int nbLine=(int)sqrt(etat.length);
 
     public int[] getFinish(){return niveaux.get(level).getFinish();}
 

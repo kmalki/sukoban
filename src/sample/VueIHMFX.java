@@ -5,13 +5,12 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class VueIHMFX {
-     Button replay;
+    Button precedent;
+    Button replay;
     Button redo;
     Button reset;
     Button undo;
@@ -38,6 +37,13 @@ public class VueIHMFX {
         this.redo=new Button("Redo");
         this.menu=new Button("Menu");
         this.replay=new Button("Replay");
+        this.precedent=new Button("Précédent");
+        if(controleur.getNiveau()<1){
+            this.precedent.setDisable(true);
+        }
+        else{
+            this.precedent.setDisable(false);
+        }
         this.undo.setDisable(true);
         this.redo.setDisable(true);
         dessine();

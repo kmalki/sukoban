@@ -1,13 +1,6 @@
 package sample;
 
 import java.util.ArrayList;
-import java.util.Optional;
-
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ButtonType;
 
 public class Controleur implements Sujet {
     private static Controleur singleton;
@@ -26,7 +19,7 @@ public class Controleur implements Sujet {
     }
 
     public void abonne(Observateur observateur) {
-        observateurs.add(observateur);
+        observateurs.clear();observateurs.add(observateur);
     }
 
     @Override
@@ -104,7 +97,6 @@ public class Controleur implements Sujet {
 
     public void setNiveau(int i) {
         facadeModele.setNiveau(i);
-        notifie(0);
     }
 
     public int getNiveau() {

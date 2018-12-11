@@ -68,6 +68,7 @@ public class ModeleNbCoup implements Modele {
 
     public void setNiveau(int i) {
         modele.setNiveau(i);
+        nbCoup=0;
     }
 
     public int getLevel() {
@@ -87,5 +88,10 @@ public class ModeleNbCoup implements Modele {
     }
     public void freeCoups(){
         modele.freeCoups();
+    }
+
+    public void precNiveau() {
+        modele.precNiveau();
+        nbCoup=0;
     }
 }

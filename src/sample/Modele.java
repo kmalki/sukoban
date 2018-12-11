@@ -3,13 +3,13 @@ package sample;
 import java.util.ArrayList;
 
 public interface Modele {
-    public int[] getEtat();
-    public int getLineNumber();
-    public void move(int indice);
-    public void reset();
-    public ArrayList<int[]> getCoups();
-    public void undo();
-    public boolean canUndo();
+    int[] getEtat();
+    int getLineNumber();
+    void move(int indice);
+    void reset();
+    ArrayList<int[]> getCoups();
+    void undo();
+    boolean canUndo();
 
     int[] getFinish();
 
@@ -35,4 +35,6 @@ public interface Modele {
     void replay();
 
     void freeCoups();
+
+    void precNiveau();
 }

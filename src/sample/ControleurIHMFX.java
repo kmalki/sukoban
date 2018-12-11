@@ -2,11 +2,9 @@ package sample;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
@@ -24,23 +22,24 @@ public class ControleurIHMFX {
         this.controleur = controleur;
         this.primaryStage=primaryStage;
         controleur.initNiveaux();
-
     }
 
     public void goToNewGame(int i) throws FileNotFoundException {
-        vueGame=Game.newGame(controleur,this,primaryStage,i);
+        vueGame=Game.newGame(controleur,this,this.primaryStage,i);
         vueGame.vue.reset.setOnAction(new ActionReset());
         vueGame.vue.undo.setOnAction(new ActionUndo());
         vueGame.vue.redo.setOnAction(new ActionRedo());
         vueGame.vue.menu.setOnAction(new ActionMenu());
         vueGame.vue.replay.setOnAction(new ActionReplay());
+        vueGame.vue.precedent.setOnAction(new ActionPrec());
+       // controleur.notifie(0);
     }
 
     public void goToMenu(){
         vueMenu=Menu.creerEtAfficher(this,this.primaryStage);
     }
 
-    public void goToSelection() throws FileNotFoundException {
+    public void goToSelection(){
         vueSelection=Selection.selectionner(this.controleur,this,this.primaryStage);
     }
 
@@ -57,6 +56,18 @@ public class ControleurIHMFX {
             }
         }
 
+    }
+
+    class ActionPrec implements EventHandler<ActionEvent> {
+        public void handle(ActionEvent event) {
+            try {
+                if(controleur.getNiveau()>0) {
+                    controleur.facadeModele.precNiveau();
+                    goToNewGame(controleur.getNiveau());
+                }            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     class ActionMenu implements EventHandler<ActionEvent> {
@@ -85,18 +96,24 @@ public class ControleurIHMFX {
     }
 
     public void winornot() throws FileNotFoundException {
-        if(controleur.facadeModele.winornot()==true){
+        if(controleur.facadeModele.winornot()){
             System.out.println("WIN");
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("");
-            alert.setHeaderText("Vous avez gagné !     VOTRE SCORE : "+ controleur.facadeModele.nbCoup());
+            alert.setHeaderText(controleur.getNomNiveau()+" : Réussi !     VOTRE SCORE : "+ controleur.facadeModele.nbCoup());
             alert.setContentText("Que voulez vous faire ?");
 
+            ButtonType buttonPrec = new ButtonType("Niveau Précédent");
             ButtonType buttonNext = new ButtonType("Niveau Suivant");
             ButtonType buttonReset = new ButtonType("Rejouer");
             ButtonType buttonMenu = new ButtonType("Menu principal");
 
-            alert.getButtonTypes().setAll(buttonNext,buttonReset, buttonMenu);
+            if(controleur.getNiveau()<1){
+                alert.getButtonTypes().setAll(buttonNext, buttonReset, buttonMenu);
+            }
+            else{
+                alert.getButtonTypes().setAll(buttonPrec, buttonNext, buttonReset, buttonMenu);
+            }
 
             Optional<ButtonType> result = alert.showAndWait();
 
@@ -110,10 +127,19 @@ public class ControleurIHMFX {
             }
             else if(result.get()==buttonNext){
                 System.out.println("NEXT");
-                controleur.facadeModele.nextNiveau();
-                vueGame= Game.newGame(controleur,this,primaryStage,controleur.getNiveau());
-                controleur.notifie(0);
+                nextLevel();
+            }
+            else if(result.get()==buttonPrec){
+                if(controleur.getNiveau()>0) {
+                    controleur.facadeModele.precNiveau();
+                    goToNewGame(controleur.getNiveau());
+                }
             }
         }
+    }
+
+    public void nextLevel() throws FileNotFoundException {
+        controleur.facadeModele.nextNiveau();
+        goToNewGame(controleur.getNiveau());
     }
 }

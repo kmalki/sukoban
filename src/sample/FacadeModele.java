@@ -1,7 +1,6 @@
 package sample;
 
 import java.util.ArrayList;
-import java.util.BitSet;
 
 public class FacadeModele {
     ModeleNbCoup modele = new ModeleNbCoup(new ModeleConcret());
@@ -76,5 +75,9 @@ public class FacadeModele {
     }
     public void freeCoups(){
         modele.freeCoups();
+    }
+
+    public void precNiveau() {
+        modele.precNiveau();
     }
 }

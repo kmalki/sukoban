@@ -1,13 +1,11 @@
 package sample;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
-import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
@@ -22,7 +20,7 @@ public class Selection {
     ComboBox<String> listeDeroulante;
 
 
-    public static Selection selectionner(Controleur controleur, ControleurIHMFX c, Stage laStageUnique) throws FileNotFoundException {
+    public static Selection selectionner(Controleur controleur, ControleurIHMFX c, Stage laStageUnique){
         URL location = Menu.class.getResource("/views/Selection.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(location);
         Parent root = null;
@@ -59,7 +57,7 @@ public class Selection {
         monControleur=c;
     }
 
-    public void goToMenu(ActionEvent event) {
+    public void goToMenu() {
         this.monControleurIHMFX.goToMenu();
     }
 

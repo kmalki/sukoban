@@ -1,13 +1,11 @@
 package sample;
 
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
@@ -25,30 +23,31 @@ public class Game implements Observateur {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-//                if (j == 1){
-//                    vueNbCoup.dessine();
-//                vue.dessine();
-//                try {
-//                    cont.winornot();
-//                } catch (FileNotFoundException e) {
-//                    e.printStackTrace();
-//                }
-//                if (!controleur.canUndo()) {
-//                    vue.disableUndo();
-//                } else {
-//                    vue.enableUndo();
-//                }
-//                if (!controleur.canRedo()) {
-//                    vue.disableRedo();
-//                } else {
-//                    vue.enableRedo();
-//                }
-//                try {
-//                    Thread.sleep(1000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//            }else{
+                System.out.println("ACTUALISEEEEEEEEEEEEEEE");
+                if (j == 1){
+                    vueNbCoup.dessine();
+                vue.dessine();
+                try {
+                    cont.winornot();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                if (!controleur.canUndo()) {
+                    vue.disableUndo();
+                } else {
+                    vue.enableUndo();
+                }
+                if (!controleur.canRedo()) {
+                    vue.disableRedo();
+                } else {
+                    vue.enableRedo();
+                }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }else{
                     vueNbCoup.dessine();
                     vue.dessine();
                     try {
@@ -67,7 +66,7 @@ public class Game implements Observateur {
                         vue.enableRedo();
                     }
                 }
-       // }
+        }
         });
     };
 
@@ -95,6 +94,7 @@ public class Game implements Observateur {
                 setCentre(vueG.vue .gridPane).
                 ajoutBas(vueG.vueNbCoup.label2).
                 ajoutBas(vueG.vue.menu).
+                ajoutBas(vueG.vue.precedent).
                 ajoutBas(vueG.vue.replay).
                 ajoutBas(vueG.vue .reset).
                 ajoutBas(vueG.vue .undo).
