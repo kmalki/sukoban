@@ -82,6 +82,7 @@ public class VueIHMFX {
 
     public void initMatrice(){
         System.out.println("NEW MATRICE : " + commandeGetEtat.exec().length);
+        gridPane.getChildren().remove(0, gridPane.getChildren().size());
         images = new ImageView[commandeGetEtat.exec().length];
         int col=0;
         for (int i=0;i<commandeGetEtat.exec().length;i++) {
