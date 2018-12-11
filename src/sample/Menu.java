@@ -1,12 +1,15 @@
 package sample;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
@@ -50,5 +53,16 @@ public class Menu {
 
     public void goToSelection() throws FileNotFoundException {
         monControleur.goToSelection();
+    }
+
+    public void load() {
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Open Resource File");
+        fc.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Text Files", "*.txt"));
+        File selectedFile = fc.showOpenDialog(monControleur.primaryStage);
+        if (selectedFile != null) {
+            monControleur.controleur.load(selectedFile);
+        }
     }
 }

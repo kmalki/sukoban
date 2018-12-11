@@ -1,5 +1,6 @@
 package sample;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class FacadeModele {
@@ -41,11 +42,6 @@ public class FacadeModele {
         return modele.canRedo();
     }
 
-
-    public void initNiveaux() {
-         modele.traitement();
-    }
-
     public void nextNiveau() {
         modele.nextNiveau();
     }
@@ -79,5 +75,9 @@ public class FacadeModele {
 
     public void precNiveau() {
         modele.precNiveau();
+    }
+
+    public void loadLevels(File file) {
+        modele.loadLevels(file);
     }
 }

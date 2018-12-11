@@ -19,7 +19,7 @@ public class ModeleConcret implements Modele {
 
     private int level;
     private int levelMax;
-    ArrayList<Niveau> niveaux;
+    ArrayList<Niveau> niveaux = new ArrayList<>();
 
     public ArrayList<int[]> getCoups(){
         return coups;
@@ -48,9 +48,14 @@ public class ModeleConcret implements Modele {
         }
     }
 
-    public void traitement(){
-        niveaux = new ArrayList<>();
-        File file = new File("MicroCosmos.txt");
+
+    public void loadLevels(File f) {
+        traitement(f);
+    }
+
+    public void traitement(File file){
+
+        //File file = new File(s);
         int i=0;
         int max=0;
         int cpt=0;

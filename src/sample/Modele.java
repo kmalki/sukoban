@@ -1,5 +1,6 @@
 package sample;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public interface Modele {
@@ -16,8 +17,6 @@ public interface Modele {
     void redo();
 
     boolean canRedo();
-
-    void traitement();
 
     void nextNiveau();
 
@@ -37,4 +36,6 @@ public interface Modele {
     void freeCoups();
 
     void precNiveau();
+
+    void loadLevels(File file);
 }

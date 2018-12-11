@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Optional;
 
@@ -21,7 +22,7 @@ public class ControleurIHMFX {
     ControleurIHMFX(Controleur controleur,Stage primaryStage) {
         this.controleur = controleur;
         this.primaryStage=primaryStage;
-        controleur.initNiveaux();
+        controleur.load(new File("Microcosmos.txt"));
     }
 
     public void goToNewGame(int i) throws FileNotFoundException {

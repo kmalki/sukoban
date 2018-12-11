@@ -1,5 +1,8 @@
 package sample;
 
+import javafx.stage.FileChooser;
+
+import java.io.File;
 import java.util.ArrayList;
 
 public class Controleur implements Sujet {
@@ -85,11 +88,6 @@ public class Controleur implements Sujet {
 
     }
 
-
-    public void initNiveaux() {
-        facadeModele.initNiveaux();
-    }
-
     public ArrayList<Niveau> getNiveaux() {
         return facadeModele.getNiveaux();
     }
@@ -114,5 +112,10 @@ public class Controleur implements Sujet {
             notifie(1);
 
         }
+    }
+
+    public void load(File file) {
+        facadeModele.loadLevels(file);
+        System.out.println("done");
     }
 }

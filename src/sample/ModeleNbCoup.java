@@ -1,6 +1,7 @@
 package sample;
 
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class ModeleNbCoup implements Modele {
@@ -56,7 +57,7 @@ public class ModeleNbCoup implements Modele {
     public boolean canRedo() {
         return modele.canRedo();
     }
-    public void traitement(){modele.traitement();}
+   // public void traitement(){modele.traitement();}
     public void nextNiveau(){
         modele.nextNiveau();
         nbCoup=0;
@@ -93,5 +94,9 @@ public class ModeleNbCoup implements Modele {
     public void precNiveau() {
         modele.precNiveau();
         nbCoup=0;
+    }
+
+    public void loadLevels(File f){
+        modele.loadLevels(f);
     }
 }
