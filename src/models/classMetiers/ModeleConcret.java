@@ -1,4 +1,6 @@
-package models;
+package models.classMetiers;
+
+import views.Niveau;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -53,9 +55,11 @@ public class ModeleConcret implements Modele {
         traitement(f);
     }
 
-    public void traitement(File file){
+    public int getNombreNiveaux() {
+        return niveaux.size();
+    }
 
-        //File file = new File(s);
+    public void traitement(File file){
         int i=0;
         int max=0;
         int cpt=0;
@@ -161,6 +165,7 @@ public class ModeleConcret implements Modele {
             e.printStackTrace();
         }
         levelMax=niveaux.size()-1;
+        System.out.println(levelMax);
     }
     public void nextNiveau() {
         if(level<levelMax){
@@ -209,7 +214,6 @@ public class ModeleConcret implements Modele {
         if(coups.size()<allCoups.size()){
             coups.add(allCoups.get(coups.size()));
         }
-
     }
 
     public void undo(){

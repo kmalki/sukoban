@@ -1,4 +1,4 @@
-package models;
+package views;
 
 import controlers.Controleur;
 import javafx.geometry.Pos;
@@ -6,33 +6,29 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
-import sample.CommandeInt;
-import sample.CommandeTabInt;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import models.classMetiers.CommandeInt;
+import models.classMetiers.CommandeTabInt;
 
 public class VueIHMFX {
-    Button precedent;
-    Button replay;
-    Button redo;
-    Button reset;
-    Button undo;
-    Button menu;
+    public Button precedent;
+    public Button replay;
+    public Button redo;
+    public Button reset;
+    public Button undo;
+    public Button menu;
     CommandeTabInt commandeGetEtat;
     CommandeInt commandeLineNumber;
     ImageView[] images;
     GridPane gridPane = new GridPane();
+    Image character = new Image(getClass().getResource("/character.png").toString(),80,80,false,true);
+    Image caissebrown = new Image(getClass().getResource("/caissebrown.png").toString(),80,80,false,true);
+    Image wall = new Image(getClass().getResource("/wall.png").toString(),80,80,false,true);
+    Image sand = new Image(getClass().getResource("/sand.png").toString(),80,80,false,true);
+    Image empty = new Image(getClass().getResource("/empty.png").toString(),80,80,false,true);
+    Image endbrown = new Image(getClass().getResource("/endbrown.png").toString(),80,80,false,true);
 
-    Image character = new Image(new FileInputStream("character.png"),80,80,false,true);
-    Image caissebrown = new Image(new FileInputStream("caissebrown.png"),80,80,false,true);
-    Image wall = new Image(new FileInputStream("wall.png"),80,80,false,true);
-    Image sand = new Image(new FileInputStream("sand.png"),80,80,false,true);
-    Image empty = new Image(new FileInputStream("empty.png"),80,80,false,true);
-    Image endbrown = new Image(new FileInputStream("endbrown.png"),80,80,false,true);
 
-
-    public VueIHMFX(Controleur controleur) throws FileNotFoundException {
+    public VueIHMFX(Controleur controleur){
         gridPane.setAlignment(Pos.CENTER);
         commandeGetEtat = controleur.commandeGetEtat();
         commandeLineNumber=controleur.getLineNumber();
@@ -57,8 +53,7 @@ public class VueIHMFX {
         initMatrice();
         for (int i=0;i<commandeGetEtat.exec().length;i++) {
             if(commandeGetEtat.exec()[i]==1) { // 1 = perso
-                images[i].setImage(sand);
-                images[i].setImage(character);
+                images[i].imageProperty().set(character);
             }
             else if(commandeGetEtat.exec()[i]==2){
                 images[i].imageProperty().set(caissebrown);
@@ -73,9 +68,7 @@ public class VueIHMFX {
                 images[i].imageProperty().set(empty);
             }
             else if(commandeGetEtat.exec()[i]==4){
-                images[i].setImage(sand);
-
-                images[i].setImage(endbrown);
+                images[i].imageProperty().set(endbrown);
             }
         }
     }

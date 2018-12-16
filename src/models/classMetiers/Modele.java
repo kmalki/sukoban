@@ -1,4 +1,6 @@
-package models;
+package models.classMetiers;
+
+import views.Niveau;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -38,4 +40,6 @@ public interface Modele {
     void precNiveau();
 
     void loadLevels(File file);
+
+    int getNombreNiveaux();
 }

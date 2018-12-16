@@ -1,8 +1,8 @@
-package sample;
+package models.facade;
 
-import models.ModeleConcret;
-import models.ModeleNbCoup;
-import models.Niveau;
+import models.classMetiers.ModeleConcret;
+import models.classMetiers.ModeleNbCoup;
+import views.Niveau;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -83,5 +83,9 @@ public class FacadeModele {
 
     public void loadLevels(File file) {
         modele.loadLevels(file);
+    }
+
+    public int getNombreNiveaux() {
+        return modele.getNombreNiveaux();
     }
 }

@@ -1,5 +1,5 @@
-package sample;
+package models.classMetiers;
 
 public interface Observateur {
-    void actualise(int j);
+    void actualise();
 }

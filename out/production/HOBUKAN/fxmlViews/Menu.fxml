@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox fx:id="topNiveau" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Menu">
+<VBox fx:id="topNiveau" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.Menu">
     <children>
       <AnchorPane prefHeight="900.0" prefWidth="1720.0">
          <children>
@@ -15,7 +15,7 @@
                   <Font name="Gabriola" size="72.0" />
                </font>
             </Label>
-              <Button fx:id="new" layoutX="695.0" layoutY="347.0" onAction="#goToNewGame" text="Nouvelle partie">
+              <Button fx:id="newG" layoutX="695.0" layoutY="347.0" onAction="#goToNewGame" text="Nouvelle partie">
                <font>
                   <Font name="Gabriola" size="24.0" />
                </font>

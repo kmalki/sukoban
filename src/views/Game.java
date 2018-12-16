@@ -1,4 +1,4 @@
-package models;
+package views;
 
 import controlers.Controleur;
 import controlers.ControleurIHMFX;
@@ -9,33 +9,26 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import sample.MonteurScene;
-import sample.Observateur;
+import models.classMetiers.MonteurScene;
+import models.classMetiers.Observateur;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 
 public class Game implements Observateur {
     Controleur controleur;
     VueNbCoupIHMFX vueNbCoup;
-    VueIHMFX vue;
+    public VueIHMFX vue;
     ControleurIHMFX cont;
 
 
-    public void actualise(int j){
+    public void actualise(){
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                System.out.println("ACTUALISEEEEEEEEEEEEEEE");
-                if (j == 1){
-                    vueNbCoup.dessine();
+                vueNbCoup.dessine();
                 vue.dessine();
-                try {
-                    cont.winornot();
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
+                cont.winornot();
                 if (!controleur.canUndo()) {
                     vue.disableUndo();
                 } else {
@@ -46,36 +39,12 @@ public class Game implements Observateur {
                 } else {
                     vue.enableRedo();
                 }
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }else{
-                    vueNbCoup.dessine();
-                    vue.dessine();
-                    try {
-                        cont.winornot();
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                    if (!controleur.canUndo()) {
-                        vue.disableUndo();
-                    } else {
-                        vue.enableUndo();
-                    }
-                    if (!controleur.canRedo()) {
-                        vue.disableRedo();
-                    } else {
-                        vue.enableRedo();
-                    }
-                }
-        }
+            }
         });
     };
 
-    public static Game newGame(Controleur controleur, ControleurIHMFX c, Stage laStageUnique,int niveau) throws FileNotFoundException {
-        URL location = Menu.class.getResource("/resources/views/Game.fxml");
+    public static Game newGame(Controleur controleur, ControleurIHMFX c, Stage laStageUnique,int niveau){
+        URL location = Menu.class.getResource("/fxmlViews/Game.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(location);
         Parent root = null;
         try {
@@ -91,11 +60,11 @@ public class Game implements Observateur {
         vueG.vueNbCoup=new VueNbCoupIHMFX(controleur);
         vueG.vue = new VueIHMFX(controleur);
         vueG.vueNbCoup.dessineNom(controleur.getNomNiveau());
+        vueG.vueNbCoup.dessine();
         MonteurScene monteurScene = new MonteurScene();
         Scene scene = monteurScene.
                 setLargeur((int)laStageUnique.getWidth()).
                 setHauteur((int)laStageUnique.getHeight()).
-                setCentre(vueG.vue .gridPane).
                 ajoutBas(vueG.vueNbCoup.label2).
                 ajoutBas(vueG.vue.menu).
                 ajoutBas(vueG.vue.precedent).
@@ -104,9 +73,8 @@ public class Game implements Observateur {
                 ajoutBas(vueG.vue .undo).
                 ajoutBas(vueG.vue .redo).
                 ajoutBas(vueG.vueNbCoup.label).
-
+                setCentre(vueG.vue .gridPane).
                 retourneScene();
-
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -133,4 +101,11 @@ public class Game implements Observateur {
         controleur=c;
     }
 
+    public void disableButtons() {
+        this.vue.disableRedo();this.vue.disableUndo();
+    }
+
+    public void enableButtons() {
+        this.vue.enableRedo();this.vue.enableUndo();
+    }
 }

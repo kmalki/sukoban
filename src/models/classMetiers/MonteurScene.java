@@ -1,4 +1,4 @@
-package sample;
+package models.classMetiers;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class MonteurScene {
     ArrayList<Region> bas = new ArrayList<Region>();
-    Region centre;
+   public Region centre;
     int largeur = 1600;
     int hauteur = 900;
 
@@ -34,14 +34,13 @@ public class MonteurScene {
         return this;
     }
 
-    Scene retourneScene() {
+    public Scene retourneScene() {
         assert (centre !=null);
         GridPane gridPane = new GridPane();
         gridPane.setAlignment(Pos.CENTER);
         gridPane.add(centre,0,0);
         gridPane.setMinSize(largeur, hauteur);
         centre.setMinSize(largeur, hauteur*7/8);
-        //centre.setCenterShape(true);
 
         //Setting the padding
         gridPane.setPadding(new Insets(10, 10, 10, 10));

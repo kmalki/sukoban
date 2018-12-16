@@ -1,6 +1,14 @@
-package sample;
+package controlers;
 
-import javafx.stage.FileChooser;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
+import models.classMetiers.CommandeInt;
+import models.classMetiers.CommandeTabInt;
+import models.classMetiers.Observateur;
+import models.classMetiers.Sujet;
+import models.facade.FacadeModele;
+import views.Niveau;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -26,24 +34,24 @@ public class Controleur implements Sujet {
     }
 
     @Override
-    public void notifie(int j) {
+    public void notifie() {
         for (Observateur observateur:observateurs)
-            observateur.actualise(j);
+            observateur.actualise();
     }
 
     public void move(int x) {
         facadeModele.move(x);
-        notifie(0);
+        notifie();
     }
 
     public void reset() {
         facadeModele.reset();
-        notifie(0);
+        notifie();
     }
 
     public void undo() {
         facadeModele.undo();
-        notifie(0);
+        notifie();
     }
 
     public CommandeInt commandeNbCoup() {
@@ -80,7 +88,7 @@ public class Controleur implements Sujet {
 
     public void redo() {
         facadeModele.redo();
-        notifie(0);
+        notifie();
     }
 
     public boolean canRedo() {
@@ -105,17 +113,21 @@ public class Controleur implements Sujet {
         return facadeModele.getNomNiveau();
     }
 
-    public void replay() throws InterruptedException {
+    public void replay() {
         facadeModele.freeCoups();
-        for(int i=0;i<facadeModele.getAllCoups().size();i++){
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), ev -> {
+            // TODO do something meaningful here
             facadeModele.replay();
-            notifie(1);
-
-        }
+           notifie();
+        }));
+        timeline.setCycleCount(facadeModele.getAllCoups().size());
+        timeline.play();
     }
-
     public void load(File file) {
         facadeModele.loadLevels(file);
-        System.out.println("done");
+    }
+
+    public int getNombreNiveaux() {
+        return facadeModele.getNombreNiveaux();
     }
 }

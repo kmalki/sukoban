@@ -1,4 +1,4 @@
-package models;
+package views;
 
 import controlers.Controleur;
 import controlers.ControleurIHMFX;
@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -22,7 +23,7 @@ public class Selection {
 
 
     public static Selection selectionner(Controleur controleur, ControleurIHMFX c, Stage laStageUnique){
-        URL location = Menu.class.getResource("/resources/Selection.fxml");
+        URL location = Menu.class.getResource("/fxmlViews/Selection.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(location);
         Parent root = null;
         try {
@@ -62,7 +63,7 @@ public class Selection {
         this.monControleurIHMFX.goToMenu();
     }
 
-    public void jouer() throws FileNotFoundException {
+    public void jouer(){
         String levelName = listeDeroulante.getValue();
         if (levelName != null) {
             int numLevel = -1;

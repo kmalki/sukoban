@@ -1,20 +1,19 @@
-package models;
+package models.classMetiers;
 
+
+import views.Niveau;
 
 import java.io.File;
 import java.util.ArrayList;
 
 public class ModeleNbCoup implements Modele {
     Modele modele;
-    int nbCoup =0;
+    public int nbCoup =0;
 
     public ModeleNbCoup(Modele modele) {
         this.modele = modele;
     }
 
-    public int nbCoup(){
-        return nbCoup;
-    }
     public int getLineNumber(){return modele.getLineNumber();}
     public int[] getEtat(){
         return modele.getEtat();
@@ -57,7 +56,7 @@ public class ModeleNbCoup implements Modele {
     public boolean canRedo() {
         return modele.canRedo();
     }
-   // public void traitement(){modele.traitement();}
+
     public void nextNiveau(){
         modele.nextNiveau();
         nbCoup=0;
@@ -98,5 +97,9 @@ public class ModeleNbCoup implements Modele {
 
     public void loadLevels(File f){
         modele.loadLevels(f);
+    }
+
+    public int getNombreNiveaux() {
+        return modele.getNombreNiveaux();
     }
 }

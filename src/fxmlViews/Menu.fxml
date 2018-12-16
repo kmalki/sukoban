@@ -15,7 +15,7 @@
                   <Font name="Gabriola" size="72.0" />
                </font>
             </Label>
-              <Button fx:id="new" layoutX="695.0" layoutY="347.0" onAction="#goToNewGame" text="Nouvelle partie">
+              <Button fx:id="newG" layoutX="695.0" layoutY="347.0" onAction="#goToNewGame" text="Nouvelle partie">
                <font>
                   <Font name="Gabriola" size="24.0" />
                </font>

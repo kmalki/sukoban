@@ -1,31 +1,31 @@
-package sample;
+package controlers;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
-
-import java.io.File;
+import views.Game;
+import views.Menu;
+import views.Selection;
 import java.io.FileNotFoundException;
+import java.net.URISyntaxException;
 import java.util.Optional;
 
 public class ControleurIHMFX {
-    Controleur controleur;
+    public Controleur controleur;
     Menu vueMenu;
-    Stage primaryStage;
+    public Stage primaryStage;
     Game vueGame;
     Selection vueSelection;
 
 
-    ControleurIHMFX(Controleur controleur,Stage primaryStage) {
+    public ControleurIHMFX(Controleur controleur,Stage primaryStage){
         this.controleur = controleur;
         this.primaryStage=primaryStage;
-        controleur.load(new File("Microcosmos.txt"));
     }
 
-    public void goToNewGame(int i) throws FileNotFoundException {
+    public void goToNewGame(int i){
         vueGame=Game.newGame(controleur,this,this.primaryStage,i);
         vueGame.vue.reset.setOnAction(new ActionReset());
         vueGame.vue.undo.setOnAction(new ActionUndo());
@@ -33,7 +33,6 @@ public class ControleurIHMFX {
         vueGame.vue.menu.setOnAction(new ActionMenu());
         vueGame.vue.replay.setOnAction(new ActionReplay());
         vueGame.vue.precedent.setOnAction(new ActionPrec());
-       // controleur.notifie(0);
     }
 
     public void goToMenu(){
@@ -44,30 +43,23 @@ public class ControleurIHMFX {
         vueSelection=Selection.selectionner(this.controleur,this,this.primaryStage);
     }
 
-    public void jouer(int numLevel) throws FileNotFoundException {
+    public void jouer(int numLevel){
         goToNewGame(numLevel);
     }
 
     class ActionReplay implements EventHandler<ActionEvent> {
         public void handle(ActionEvent event) {
-            try {
                 controleur.replay();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
         }
 
     }
 
     class ActionPrec implements EventHandler<ActionEvent> {
         public void handle(ActionEvent event) {
-            try {
                 if(controleur.getNiveau()>0) {
                     controleur.facadeModele.precNiveau();
                     goToNewGame(controleur.getNiveau());
-                }            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
+                }
         }
     }
 
@@ -96,7 +88,7 @@ public class ControleurIHMFX {
         primaryStage.close();
     }
 
-    public void winornot() throws FileNotFoundException {
+    public void winornot(){
         if(controleur.facadeModele.winornot()){
             System.out.println("WIN");
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -139,7 +131,7 @@ public class ControleurIHMFX {
         }
     }
 
-    public void nextLevel() throws FileNotFoundException {
+    public void nextLevel(){
         controleur.facadeModele.nextNiveau();
         goToNewGame(controleur.getNiveau());
     }

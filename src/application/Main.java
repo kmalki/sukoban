@@ -1,6 +1,4 @@
-package sample;
-
-import models.classMetiers.IHMFX;
+package application;
 
 public class Main {
     public static void main(String[] args) {

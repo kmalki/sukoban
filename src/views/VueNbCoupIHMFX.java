@@ -1,12 +1,12 @@
-package models;
+package views;
 
 import controlers.Controleur;
 import javafx.scene.control.Label;
-import sample.CommandeInt;
+import models.classMetiers.CommandeInt;
 
 public class VueNbCoupIHMFX  {
     Controleur controleur;
-    Label label = new Label("0");
+    Label label = new Label("");
     Label label2 = new Label("");
     CommandeInt commande;
 
