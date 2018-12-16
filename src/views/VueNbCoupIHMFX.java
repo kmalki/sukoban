@@ -1,6 +1,8 @@
-package sample;
+package models;
 
+import controlers.Controleur;
 import javafx.scene.control.Label;
+import sample.CommandeInt;
 
 public class VueNbCoupIHMFX  {
     Controleur controleur;

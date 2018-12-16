@@ -1,5 +1,7 @@
-package sample;
+package models;
 
+import controlers.Controleur;
+import controlers.ControleurIHMFX;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -7,6 +9,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import sample.MonteurScene;
+import sample.Observateur;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -71,7 +75,7 @@ public class Game implements Observateur {
     };
 
     public static Game newGame(Controleur controleur, ControleurIHMFX c, Stage laStageUnique,int niveau) throws FileNotFoundException {
-        URL location = Menu.class.getResource("/views/Game.fxml");
+        URL location = Menu.class.getResource("/resources/views/Game.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(location);
         Parent root = null;
         try {

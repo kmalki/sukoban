@@ -1,4 +1,4 @@
-package sample;
+package models;
 
 public class Niveau {
     private String name;

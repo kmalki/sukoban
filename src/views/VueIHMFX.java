@@ -1,10 +1,14 @@
-package sample;
+package models;
 
+import controlers.Controleur;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import sample.CommandeInt;
+import sample.CommandeTabInt;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 

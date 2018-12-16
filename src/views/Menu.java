@@ -1,6 +1,6 @@
-package sample;
+package models;
 
-import javafx.event.ActionEvent;
+import controlers.ControleurIHMFX;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,7 +21,7 @@ public class Menu {
 
 
     public static Menu creerEtAfficher(ControleurIHMFX c, Stage laStageUnique) {
-        URL location = Menu.class.getResource("/views/Menu.fxml");
+        URL location = Menu.class.getResource("/resources/Menu.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(location);
         Parent root = null;
         try {

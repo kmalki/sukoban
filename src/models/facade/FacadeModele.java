@@ -1,5 +1,9 @@
 package sample;
 
+import models.ModeleConcret;
+import models.ModeleNbCoup;
+import models.Niveau;
+
 import java.io.File;
 import java.util.ArrayList;
 
