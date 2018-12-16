@@ -22,7 +22,6 @@ public class ModeleNbCoup implements Modele {
     public ArrayList<int[]> getCoups(){return modele.getCoups();}
 
     public void move(int indice) {
-        System.out.println("move");
         nbCoup++;
         modele.move(indice);
     }

@@ -22,7 +22,7 @@ public class Controleur implements Sujet {
         return singleton;
     }
 
-    FacadeModele facadeModele;
+    public FacadeModele facadeModele;
     ArrayList<Observateur> observateurs = new ArrayList<Observateur>();
 
     private Controleur(FacadeModele facadeModele) {
@@ -128,6 +128,10 @@ public class Controleur implements Sujet {
     }
 
     public int getNombreNiveaux() {
+        return facadeModele.getNombreNiveaux();
+    }
+
+    public int getNiveauMax() {
         return facadeModele.getNombreNiveaux();
     }
 }

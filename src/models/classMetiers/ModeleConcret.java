@@ -93,7 +93,6 @@ public class ModeleConcret implements Modele {
                 }
                 nom=sc.nextLine().substring(1);
                 cpt++;
-                System.out.println(nom + ":" +fin +" length:"+max*i + "max : "+max +" i : "+i);
                 int[] etat = new int[max*i];
                 int iterator=0;
                 int[] finish = new int[fin];
@@ -101,7 +100,6 @@ public class ModeleConcret implements Modele {
                 while(cpt1<cpt-1 && sc1.hasNextLine() && sc1.findInLine(";")==null){
                     elem=sc1.nextLine();
                     for(int o=0;o<elem.length();o++){
-                        System.out.println(iterator);
                         switch (elem.charAt(o)) {
                             case '#':
                                 etat[iterator] = 3;
@@ -114,21 +112,16 @@ public class ModeleConcret implements Modele {
                                 break;
                             case '.':
                                 etat[iterator] = 4;
-                                System.out.println(elem.charAt(o));
                                 finish[fin] = iterator;
                                 fin++;
                                 break;
                             case '+':
                                 etat[iterator] = 1;
-                                System.out.println(elem.charAt(o));
-
                                 finish[fin] = iterator;
                                 fin++;
                                 break;
                             case '*':
                                 etat[iterator] = 2;
-                                System.out.println(elem.charAt(o));
-
                                 finish[fin] = iterator;
                                 fin++;
                                 break;
@@ -143,7 +136,6 @@ public class ModeleConcret implements Modele {
                                 j++;
                                 etat[iterator] = 0;
                                 iterator++;
-                                System.out.println(j);
                             }
                         }
                     }
@@ -156,7 +148,6 @@ public class ModeleConcret implements Modele {
                     cpt1+=2;
                     sc1.nextLine();sc1.nextLine();
                 }
-                System.out.println(cpt +":"+cpt1);
                 niveaux.add(new Niveau(nom,etat.clone(),finish.clone(),max));
                 level++;
             }
@@ -165,7 +156,6 @@ public class ModeleConcret implements Modele {
             e.printStackTrace();
         }
         levelMax=niveaux.size()-1;
-        System.out.println(levelMax);
     }
     public void nextNiveau() {
         if(level<levelMax){
@@ -180,7 +170,6 @@ public class ModeleConcret implements Modele {
         level=i;
         coups.clear();allCoups.clear();
         coups.add(niveaux.get(level).getPlateau());
-        System.out.println(niveaux.get(level).getName()+"///////////////////////////////////");
         allCoups.add(niveaux.get(level).getPlateau());
     }
 
@@ -217,19 +206,10 @@ public class ModeleConcret implements Modele {
     }
 
     public void undo(){
-        System.out.println("undo");
-        for(int i=0;i<coups.size();i++){
-            System.out.print("TABLEAU");
-            for(int j=0;j<coups.get(i).length;j++){
-                System.out.print(coups.get(i)[j]+" ");
-            }
-        }
-        System.out.println("");
         coups.remove(coups.size()-1);
     }
 
     public void move(int indice) {
-        System.out.println("LEVEEEEEEEEEEEEEEEEEEEEEEL " +level);
         int[] newEtat = coups.get(coups.size()-1).clone();
         if(indice==1){//RIGHT
             for(int i=0;i<newEtat.length-1;i++){
@@ -320,21 +300,12 @@ public class ModeleConcret implements Modele {
                 }
             }
         }
-        System.out.println(indice);
         for(int i=0;i<getFinish().length;i++){
             if(newEtat[getFinish()[i]]!=1 && newEtat[getFinish()[i]]!=2){
                 newEtat[getFinish()[i]]=4;
             }
         }
         coups.add(newEtat);
-        for(int i=0;i<coups.size();i++){
-            System.out.print("TABLEAU");
-            for(int j=0;j<coups.get(i).length;j++){
-                System.out.print(coups.get(i)[j]+" ");
-            }
-            System.out.println("");
-        }
-        System.out.println("///////////");
         allCoups.add(newEtat.clone());
     }
     @Override

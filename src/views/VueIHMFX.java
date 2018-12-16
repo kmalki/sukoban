@@ -2,7 +2,6 @@ package views;
 
 import controlers.Controleur;
 import javafx.geometry.Pos;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -10,12 +9,7 @@ import models.classMetiers.CommandeInt;
 import models.classMetiers.CommandeTabInt;
 
 public class VueIHMFX {
-    public Button precedent;
-    public Button replay;
-    public Button redo;
-    public Button reset;
-    public Button undo;
-    public Button menu;
+
     CommandeTabInt commandeGetEtat;
     CommandeInt commandeLineNumber;
     ImageView[] images;
@@ -32,20 +26,6 @@ public class VueIHMFX {
         gridPane.setAlignment(Pos.CENTER);
         commandeGetEtat = controleur.commandeGetEtat();
         commandeLineNumber=controleur.getLineNumber();
-        this.reset = new Button("Reset");
-        this.undo = new Button("Undo");
-        this.redo=new Button("Redo");
-        this.menu=new Button("Menu");
-        this.replay=new Button("Replay");
-        this.precedent=new Button("Précédent");
-        if(controleur.getNiveau()<1){
-            this.precedent.setDisable(true);
-        }
-        else{
-            this.precedent.setDisable(false);
-        }
-        this.undo.setDisable(true);
-        this.redo.setDisable(true);
         dessine();
     }
 
@@ -73,18 +53,8 @@ public class VueIHMFX {
         }
     }
 
-    public void disableUndo(){
-        undo.setDisable(true);
-    }
-    public void enableUndo(){
-        undo.setDisable(false);
-    }
-
-    public void disableRedo() { redo.setDisable(true);}
-    public void enableRedo() { redo.setDisable(false);}
 
     public void initMatrice(){
-        System.out.println("NEW MATRICE : " + commandeGetEtat.exec().length);
         gridPane.getChildren().remove(0, gridPane.getChildren().size());
         images = new ImageView[commandeGetEtat.exec().length];
         int col=0;

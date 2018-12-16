@@ -11,9 +11,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 
 public class Menu {
@@ -54,10 +52,6 @@ public class Menu {
 
     private void setMonControleur(ControleurIHMFX c) {
         monControleur=c;
-    }
-
-    public void quitter(){
-        monControleur.quitter();
     }
 
     public void goToNewGame(){

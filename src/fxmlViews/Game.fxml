@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.control.Button?>
 <VBox fx:id="topNiveau" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="176.0" prefWidth="272.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="views.Game">
+<Button fx:id="reset" onAction="#reset">Reset</Button>
+    <Button fx:id="precedent" onAction="#precedent">Précédent</Button>
+    <Button fx:id="replay" onAction="#replay">Replay</Button>
+    <Button fx:id="undo" onAction="#undo">Undo</Button>
+    <Button fx:id="redo" onAction="#redo">Redo</Button>
+    <Button fx:id="suivant" onAction="#suivant">Suivant</Button>
+
+    <Button fx:id="menu" onAction="#menu">Menu</Button>
 </VBox>
