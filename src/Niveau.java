@@ -1,5 +1,3 @@
-package views;
-
 public class Niveau {
     private String name;
     private int[] plateau;

@@ -1,14 +1,6 @@
-package controlers;
-
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
-import models.classMetiers.CommandeInt;
-import models.classMetiers.CommandeTabInt;
-import models.classMetiers.Observateur;
-import models.classMetiers.Sujet;
-import models.facade.FacadeModele;
-import views.Niveau;
 
 import java.io.File;
 import java.util.ArrayList;

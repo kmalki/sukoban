@@ -1,12 +1,7 @@
-package controlers;
-
-
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
-import views.Game;
-import views.Menu;
-import views.Selection;
+
 import java.util.Optional;
 
 public class ControleurIHMFX {

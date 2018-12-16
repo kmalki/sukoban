@@ -1,10 +1,5 @@
-package application;
-
-import controlers.Controleur;
-import controlers.ControleurIHMFX;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import views.Menu;
 
 public class IHMFX extends Application  {
     Controleur controleur;

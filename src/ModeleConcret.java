@@ -1,7 +1,3 @@
-package models.classMetiers;
-
-import views.Niveau;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;

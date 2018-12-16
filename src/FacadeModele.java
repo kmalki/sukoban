@@ -1,9 +1,3 @@
-package models.facade;
-
-import models.classMetiers.ModeleConcret;
-import models.classMetiers.ModeleNbCoup;
-import views.Niveau;
-
 import java.io.File;
 import java.util.ArrayList;
 

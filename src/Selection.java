@@ -1,7 +1,3 @@
-package views;
-
-import controlers.Controleur;
-import controlers.ControleurIHMFX;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,7 +17,7 @@ public class Selection {
 
 
     public static Selection selectionner(Controleur controleur, ControleurIHMFX c, Stage laStageUnique){
-        URL location = Menu.class.getResource("/fxmlViews/Selection.fxml");
+        URL location = Menu.class.getResource("/Selection.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(location);
         Parent root = null;
         try {

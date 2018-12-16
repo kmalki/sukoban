@@ -1,8 +1,5 @@
-package views;
 
-import controlers.Controleur;
 import javafx.scene.control.Label;
-import models.classMetiers.CommandeInt;
 
 public class VueNbCoupIHMFX  {
     Controleur controleur;

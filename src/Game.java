@@ -1,7 +1,3 @@
-package views;
-
-import controlers.Controleur;
-import controlers.ControleurIHMFX;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -11,8 +7,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import models.classMetiers.MonteurScene;
-import models.classMetiers.Observateur;
 
 import java.io.IOException;
 import java.net.URL;
@@ -61,7 +55,7 @@ public class Game implements Observateur {
     };
 
     public static Game newGame(Controleur controleur, ControleurIHMFX c, Stage laStageUnique,int niveau){
-        URL location = Menu.class.getResource("/fxmlViews/Game.fxml");
+        URL location = Menu.class.getResource("/Game.fxml");
         FXMLLoader fxmlLoader = new FXMLLoader(location);
         Parent root = null;
         try {
